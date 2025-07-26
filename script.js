@@ -9,6 +9,7 @@ function showOptions() {
 }
 
 async function downloadOption(option) {
+  window.open(data.link, "_blank")
   const url = document.getElementById('tiktokUrl').value.trim();
   if (!url) {
     alert('Please paste a TikTok link first.');
