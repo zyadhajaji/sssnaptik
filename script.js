@@ -23,8 +23,11 @@ async function downloadOption(option) {
     });
 
     const data = await response.json();
+    console.log("SnapTik Response:", data);
+
     if (data.success && data.link) {
-      triggerDownloadPopup(data.link);
+      alert("Click OK to open your download link.");
+      window.open(data.link, '_blank');
     } else {
       alert(data.error || 'Error fetching video.');
     }
@@ -33,6 +36,7 @@ async function downloadOption(option) {
     alert('Something went wrong.');
   }
 }
+
 
 /**
  * Triggers the native browser "download" popup (especially for iOS Safari)
