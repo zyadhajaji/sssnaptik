@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "build": "echo 'No build step needed'",
     "start": "node server.js"
   },
   "dependencies": {
