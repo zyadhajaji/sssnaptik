@@ -24,7 +24,7 @@ async function downloadOption(option) {
 
     const data = await response.json();
     if (data.success && data.link) {
-      showDownloadLink(data.link);
+      triggerDownloadPopup(data.link);
     } else {
       alert(data.error || 'Error fetching video.');
     }
@@ -34,27 +34,22 @@ async function downloadOption(option) {
   }
 }
 
-function showDownloadLink(videoUrl) {
-  const downloadBox = document.querySelector('.download-box');
-
-  // Remove any previous link
-  const existingLink = document.getElementById('downloadLink');
-  if (existingLink) existingLink.remove();
-
-  // Create a new clickable link
+/**
+ * Triggers the native browser "download" popup (especially for iOS Safari)
+ * by creating a hidden <a> tag with download attribute and clicking it.
+ */
+function triggerDownloadPopup(videoUrl) {
   const link = document.createElement('a');
-  link.id = 'downloadLink';
   link.href = videoUrl;
-  link.textContent = 'Click here to download your video';
-  link.target = '_blank';
-  link.style.display = 'block';
-  link.style.marginTop = '15px';
-  link.style.color = '#FFD700';
-  link.style.fontWeight = 'bold';
-  link.style.textDecoration = 'underline';
-  link.style.wordBreak = 'break-word';
+  link.setAttribute('download', 'tiktok_video.mp4');
+  link.style.display = 'none';
+  document.body.appendChild(link);
 
-  downloadBox.appendChild(link);
+  // Simulate click
+  link.click();
+
+  // Clean up
+  document.body.removeChild(link);
 }
 
 function toggleFAQ(element) {
