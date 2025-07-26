@@ -33,16 +33,16 @@ header h1 {
 .download-box {
   background: linear-gradient(145deg, #1a1a1a, #0b0b0b);
   border: 2px solid #FFD700;
-  padding: 10px 8px; /* Smaller padding */
+  padding: 8px 6px; /* Smaller padding */
   border-radius: 12px;
-  max-width: 280px;   /* Reduced width */
+  max-width: 240px;   /* Reduced width */
   margin: 20px auto;
   text-align: center;
   box-shadow: 0px 0px 12px rgba(255, 215, 0, 0.3);
 }
 
 .download-box input {
-  width: 90%;         /* Smaller width */
+  width: 70%;         /* Smaller width */
   padding: 6px;       /* Smaller padding */
   border-radius: 6px;
   border: none;
