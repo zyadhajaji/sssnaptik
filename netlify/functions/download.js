@@ -1,46 +1,41 @@
-const fetch = require('node-fetch');
-const fs = require('fs');
-const path = require('path');
+const fetch = require("node-fetch");
+const cheerio = require("cheerio");
 
 exports.handler = async (event) => {
   try {
     const { url, option } = JSON.parse(event.body);
 
     if (!url) {
-      return { statusCode: 400, body: JSON.stringify({ success: false, error: 'No URL provided.' }) };
+      return { statusCode: 400, body: JSON.stringify({ success: false, error: "No URL provided." }) };
     }
 
-    // Log all links (for analytics)
-    const logPath = path.join('/tmp', 'tiktok_links.txt');
-    fs.appendFileSync(logPath, `${new Date().toISOString()} - ${url}\n`);
+    // Call SnapTik main page with TikTok URL
+    const response = await fetch("https://snaptik.app/abc", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ url })
+    });
 
-    // Fetch from SnapTik
-    const apiUrl = `https://snaptik.app/abc?url=${encodeURIComponent(url)}`; // Example endpoint
-    const response = await fetch(apiUrl);
-    const data = await response.json();
+    const html = await response.text();
+    const $ = cheerio.load(html);
 
-    if (!data || !data.data || !data.data.video_url) {
-      return { statusCode: 404, body: JSON.stringify({ success: false, error: 'Video not found.' }) };
+    // Grab the first download link
+    let videoLink = $("a.download_link").attr("href");
+    if (!videoLink) {
+      return { statusCode: 404, body: JSON.stringify({ success: false, error: "Video not found." }) };
     }
 
-    const videoTitle = (data.data.title || 'video').replace(/[^\w\s]/gi, '').split(' ').join('-');
-    let downloadLink = data.data.video_url;
-
-    // Add filename to link
-    if (option === 'mp3') {
-      downloadLink = data.data.music_url;
-      downloadLink += `?download=Savetik-${videoTitle}.mp3`;
-    } else {
-      downloadLink += `?download=Savetik-${videoTitle}.mp4`;
-    }
+    // Append filename (for Safari popup)
+    const filename = `savetik-${Date.now()}.mp4`;
+    videoLink = `${videoLink}?filename=${filename}`;
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ success: true, link: downloadLink })
+      body: JSON.stringify({ success: true, link: videoLink })
     };
 
-  } catch (error) {
-    console.error(error);
-    return { statusCode: 500, body: JSON.stringify({ success: false, error: 'Failed to fetch video.' }) };
+  } catch (err) {
+    console.error(err);
+    return { statusCode: 500, body: JSON.stringify({ success: false, error: "Failed to fetch video." }) };
   }
 };
