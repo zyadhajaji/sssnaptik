@@ -1,34 +1,49 @@
 function showOptions() {
   const url = document.getElementById('tiktokUrl').value.trim();
+  const errorMessage = document.getElementById('errorMessage');
   const optionsBox = document.getElementById('downloadOptions');
-  if (url === '') {
-    alert('Please paste a TikTok link first.');
+
+  errorMessage.textContent = '';
+
+  if (!url) {
+    errorMessage.textContent = 'Please paste a TikTok link first.';
     return;
   }
+
   optionsBox.style.display = 'block';
 }
 
 async function downloadOption(option) {
   const url = document.getElementById('tiktokUrl').value.trim();
+  const errorMessage = document.getElementById('errorMessage');
+  const spinner = document.getElementById('loadingSpinner');
+
+  errorMessage.textContent = '';
+
   if (!url) {
-    alert('Please paste a TikTok link first.');
+    errorMessage.textContent = 'Please paste a TikTok link first.';
     return;
   }
+
   try {
-    const response = await fetch('/.netlify/functions/download', {  // Updated URL
+    spinner.style.display = 'block';
+    const response = await fetch('/.netlify/functions/download', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url, option })
     });
     const data = await response.json();
+    spinner.style.display = 'none';
+
     if (data.success && data.link) {
-      window.open(data.link, '_blank');
+      openPopup(data.link);
     } else {
-      alert(data.error || 'Error fetching video.');
+      errorMessage.textContent = data.error || 'Error fetching video.';
     }
   } catch (err) {
+    spinner.style.display = 'none';
+    errorMessage.textContent = 'Something went wrong.';
     console.error(err);
-    alert('Something went wrong.');
   }
 }
 
@@ -37,10 +52,13 @@ function toggleFAQ(element) {
   faqItem.classList.toggle('active');
 }
 
-function showMoreFAQs() {
-  const hiddenItems = document.querySelectorAll('.hidden-faq');
-  hiddenItems.forEach(item => {
-    item.style.display = 'block';
-  });
-  document.querySelector('.show-more-btn').style.display = 'none';
+function openPopup(link) {
+  const popup = document.getElementById('downloadPopup');
+  const downloadLink = document.getElementById('downloadLink');
+  downloadLink.href = link;
+  popup.style.display = 'flex';
+}
+
+function closePopup() {
+  document.getElementById('downloadPopup').style.display = 'none';
 }
