@@ -14,15 +14,17 @@ async function downloadOption(option) {
     alert('Please paste a TikTok link first.');
     return;
   }
+
   try {
-    const response = await fetch('/.netlify/functions/download', {  // Updated URL
+    const response = await fetch('/.netlify/functions/download', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url, option })
     });
+
     const data = await response.json();
     if (data.success && data.link) {
-      window.open(data.link, '_blank');
+      showDownloadLink(data.link);
     } else {
       alert(data.error || 'Error fetching video.');
     }
@@ -30,6 +32,29 @@ async function downloadOption(option) {
     console.error(err);
     alert('Something went wrong.');
   }
+}
+
+function showDownloadLink(videoUrl) {
+  const downloadBox = document.querySelector('.download-box');
+
+  // Remove any previous link
+  const existingLink = document.getElementById('downloadLink');
+  if (existingLink) existingLink.remove();
+
+  // Create a new clickable link
+  const link = document.createElement('a');
+  link.id = 'downloadLink';
+  link.href = videoUrl;
+  link.textContent = 'Click here to download your video';
+  link.target = '_blank';
+  link.style.display = 'block';
+  link.style.marginTop = '15px';
+  link.style.color = '#FFD700';
+  link.style.fontWeight = 'bold';
+  link.style.textDecoration = 'underline';
+  link.style.wordBreak = 'break-word';
+
+  downloadBox.appendChild(link);
 }
 
 function toggleFAQ(element) {
