@@ -3,10 +3,10 @@ const fetch = require('node-fetch');
 exports.handler = async (event) => {
   try {
     const { url, option } = JSON.parse(event.body || '{}');
-    if (!url) {
+    if (!url || !/^https?:\/\/(www\.)?tiktok\.com\//.test(url)) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ success: false, error: "No URL provided." }),
+        body: JSON.stringify({ success: false, error: "Invalid TikTok URL." }),
       };
     }
 
@@ -16,12 +16,15 @@ exports.handler = async (event) => {
 
     if (data && data.data) {
       let videoLink = '';
-      if (option === 'hd') {
-        videoLink = data.data.play;
-      } else if (option === 'watermark') {
-        videoLink = data.data.wmplay;
-      } else if (option === 'mp3') {
-        videoLink = data.data.music;
+      if (option === 'hd') videoLink = data.data.play;
+      else if (option === 'watermark') videoLink = data.data.wmplay;
+      else if (option === 'mp3') videoLink = data.data.music;
+
+      if (!videoLink) {
+        return {
+          statusCode: 404,
+          body: JSON.stringify({ success: false, error: 'Download option unavailable.' }),
+        };
       }
 
       return {
@@ -42,4 +45,3 @@ exports.handler = async (event) => {
     };
   }
 };
-
