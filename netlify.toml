@@ -5,3 +5,6 @@
 
 [functions]
   node_bundler = "esbuild"
+"scripts": {
+  "build": "echo 'No build step required'"
+}
