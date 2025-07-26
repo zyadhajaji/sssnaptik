@@ -9,25 +9,19 @@ function showOptions() {
 }
 
 async function downloadOption(option) {
-  window.open(data.link, "_blank")
   const url = document.getElementById('tiktokUrl').value.trim();
   if (!url) {
     alert('Please paste a TikTok link first.');
     return;
   }
-
   try {
-    const response = await fetch('/.netlify/functions/download', {
+    const response = await fetch('/.netlify/functions/download', {  // Updated URL
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url, option })
     });
-
     const data = await response.json();
-    console.log("SnapTik Response:", data);
-
     if (data.success && data.link) {
-      alert("Click OK to open your download link.");
       window.open(data.link, '_blank');
     } else {
       alert(data.error || 'Error fetching video.');
@@ -36,25 +30,6 @@ async function downloadOption(option) {
     console.error(err);
     alert('Something went wrong.');
   }
-}
-
-
-/**
- * Triggers the native browser "download" popup (especially for iOS Safari)
- * by creating a hidden <a> tag with download attribute and clicking it.
- */
-function triggerDownloadPopup(videoUrl) {
-  const link = document.createElement('a');
-  link.href = videoUrl;
-  link.setAttribute('download', 'tiktok_video.mp4');
-  link.style.display = 'none';
-  document.body.appendChild(link);
-
-  // Simulate click
-  link.click();
-
-  // Clean up
-  document.body.removeChild(link);
 }
 
 function toggleFAQ(element) {
