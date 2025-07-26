@@ -12,7 +12,6 @@ function showOptions() {
 
   optionsBox.style.display = 'block';
 }
-
 async function downloadOption(option) {
   const url = document.getElementById('tiktokUrl').value.trim();
   const errorMessage = document.getElementById('errorMessage');
@@ -36,7 +35,8 @@ async function downloadOption(option) {
     spinner.style.display = 'none';
 
     if (data.success && data.link) {
-      openPopup(data.link);
+      // Force file download
+      fetchAndDownload(data.link, option);
     } else {
       errorMessage.textContent = data.error || 'Error fetching video.';
     }
@@ -44,6 +44,28 @@ async function downloadOption(option) {
     spinner.style.display = 'none';
     errorMessage.textContent = 'Something went wrong.';
     console.error(err);
+  }
+}
+
+async function fetchAndDownload(fileUrl, option) {
+  try {
+    const response = await fetch(fileUrl);
+    const blob = await response.blob();
+    const ext = option === 'mp3' ? 'mp3' : 'mp4';
+    const fileName = `tiktok_download.${ext}`;
+
+    const tempLink = document.createElement('a');
+    tempLink.href = URL.createObjectURL(blob);
+    tempLink.download = fileName;
+    document.body.appendChild(tempLink);
+    tempLink.click();
+    tempLink.remove();
+
+    // Cleanup after a short delay
+    setTimeout(() => URL.revokeObjectURL(tempLink.href), 1000);
+  } catch (err) {
+    console.error('Download failed:', err);
+    alert('Unable to download this file on your device. Try long-pressing the play button to save.');
   }
 }
 
