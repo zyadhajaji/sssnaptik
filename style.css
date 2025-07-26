@@ -4,49 +4,58 @@ body {
   background-color: #0e0e0e;
   color: #fff;
   line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* HEADER */
 header {
   text-align: center;
-  padding: 50px 20px;
+  padding: 30px 20px;
   background: linear-gradient(to bottom, #1a1a1a, #0e0e0e);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+/* Smaller & centered title */
 header h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: #fff;
   text-shadow: 0px 0px 6px #FFD700;
   font-weight: 700;
+  margin-bottom: 20px;
 }
 
 /* DOWNLOAD BOX */
 .download-box {
   background: linear-gradient(145deg, #1a1a1a, #0b0b0b);
   border: 2px solid #FFD700;
-  padding: 30px 20px;
-  border-radius: 20px;
-  max-width: 600px;
-  margin: 30px auto;
+  padding: 20px 15px; /* Smaller padding */
+  border-radius: 15px;
+  max-width: 400px; /* Smaller width */
+  margin: 20px auto;
   text-align: center;
-  box-shadow: 0px 0px 20px rgba(255, 215, 0, 0.3);
+  box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.3);
 }
 
 .download-box input {
-  width: 80%;
-  padding: 12px;
+  width: 85%;
+  padding: 10px;
   border-radius: 8px;
   border: none;
   outline: none;
-  margin-bottom: 15px;
-  font-size: 16px;
+  margin-bottom: 12px;
+  font-size: 15px;
   text-align: center;
 }
 
 /* GOLD BUTTON */
 .gold-btn {
-  padding: 12px 25px;
-  font-size: 1rem;
+  padding: 10px 20px;
+  font-size: 0.95rem;
   border-radius: 6px;
   border: none;
   background: linear-gradient(45deg, #FFD700, #FFA500);
@@ -71,9 +80,9 @@ header h1 {
 
 .options button {
   display: block;
-  margin: 10px auto;
-  padding: 10px 20px;
-  font-size: 16px;
+  margin: 8px auto;
+  padding: 8px 15px;
+  font-size: 15px;
   background: linear-gradient(45deg, #FFD700, #FFA500);
   color: #000;
   border: none;
@@ -174,19 +183,7 @@ section h2 {
   margin-bottom: 10px;
 }
 
-/* FAQ */
-.faq {
-  margin-top: 40px;
-  text-align: center;
-}
-
-.faq h2 {
-  font-size: 2rem;
-  color: #FFD700;
-  margin-bottom: 20px;
-  text-shadow: 0 0 5px #FFA500;
-}
-
+/* FAQ CONTAINER */
 .faq-container {
   background: #1a1a1a;
   border: 1px solid rgba(255, 215, 0, 0.4);
@@ -243,37 +240,10 @@ section h2 {
   font-size: 1rem;
 }
 
-/* Initially hidden extra FAQs */
-.hidden-faq {
-  display: none;
-}
-
 /* ========================= */
 /* RESPONSIVE DESIGN CHANGES */
 /* ========================= */
 
-/* Flex container for options on mobile */
-.options-flex {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-@media (min-width: 768px) {
-  .options-flex {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-  }
-
-  .options-flex button {
-    flex: 1;
-    min-width: 45%;
-  }
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
   header h1 {
     font-size: 1.8rem;
@@ -281,7 +251,8 @@ section h2 {
   }
 
   .download-box {
-    padding: 20px;
+    max-width: 90%;
+    padding: 15px;
   }
 
   .download-box input {
@@ -321,9 +292,5 @@ section h2 {
   .gold-btn {
     width: 100%;
     padding: 10px;
-  }
-
-  .faq h2 {
-    font-size: 1.5rem;
   }
 }
