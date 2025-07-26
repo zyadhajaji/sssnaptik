@@ -113,7 +113,15 @@
       <button class="gold-btn show-more-btn" onclick="showMoreFAQs()">Show More</button>
     </div>
   </section>
-
+   <div id="downloadPopup" class="popup">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closePopup()">&times;</span>
+      <h2>Your Download is Ready</h2>
+      <p>Click below to download your file:</p>
+      <a id="downloadLink" class="gold-btn" target="_blank">Download Now</a>
+    </div>
+  </div>
+  <div id="loadingSpinner" class="spinner" style="display:none;"></div>
   <script src="script.js"></script>
 </body>
 </html>
