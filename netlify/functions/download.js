@@ -1,16 +1,7 @@
-// netlify/functions/download.js
-const fetch = require('node-fetch'); // Make sure node-fetch v2.x is installed
+const fetch = require('node-fetch');
 
 exports.handler = async (event) => {
   try {
-    if (event.httpMethod !== 'POST') {
-      return {
-        statusCode: 405,
-        headers: { "Access-Control-Allow-Origin": "*" },
-        body: JSON.stringify({ success: false, error: 'Method Not Allowed' })
-      };
-    }
-
     const { url, option } = JSON.parse(event.body || "{}");
 
     if (!url || !url.includes('tiktok.com')) {
@@ -21,14 +12,9 @@ exports.handler = async (event) => {
       };
     }
 
-    // Use a stable TikTok downloader API
+    // TikTok API
     const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`;
     const response = await fetch(apiUrl);
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch video data (status ${response.status})`);
-    }
-
     const data = await response.json();
 
     if (!data || !data.data) {
@@ -45,22 +31,22 @@ exports.handler = async (event) => {
       mp3: data.data.music,
       app: data.data.app_link
     };
-
     const videoLink = formatMap[option] || data.data.play;
 
+    // Return a proxied download URL
     return {
       statusCode: 200,
       headers: {
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
         success: true,
-        link: videoLink,
+        link: `/.netlify/functions/proxy?file=${encodeURIComponent(videoLink)}`,
         filename: `tiktok_${Date.now()}.${option === 'mp3' ? 'mp3' : 'mp4'}`
       })
     };
+
   } catch (err) {
     console.error('Error:', err);
     return {
