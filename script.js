@@ -12,12 +12,11 @@ function showOptions() {
 async function downloadOption(format) {
   const url = document.getElementById('tiktokUrl').value.trim();
   const container = document.getElementById('downloadContainer');
-
-  container.innerHTML = `<div class="loading-indicator">
-    <div class="spinner"></div><p>Processing video...</p>
-  </div>`;
+  container.innerHTML = `<p>Loading...</p>`;
 
   try {
+    console.log("Sending request to Netlify function with:", { url, option: format });
+
     const response = await fetch('/.netlify/functions/download', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -25,17 +24,16 @@ async function downloadOption(format) {
     });
 
     const data = await response.json();
-    console.log('Function Response:', data);
+    console.log("Response from function:", data);
 
     if (!data.success) throw new Error(data.error || 'Download failed');
 
     container.innerHTML = `<a href="${data.link}" target="_blank" class="gold-btn">Click to Download</a>`;
   } catch (err) {
-    console.error('Error:', err);
-    container.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+    console.error("Error in downloadOption:", err);
+    container.innerHTML = `<p style="color:red;">${err.message}</p>`;
   }
 }
-
 	// Initialize download container
 	document.addEventListener('DOMContentLoaded', () => {
 	  const container = document.getElementById('downloadContainer');
