@@ -43,26 +43,22 @@ header h1 {
   text-align: center;
 }
 
-/* GOLD BUTTON - Improved */
-.gold-btn {
-  padding: 16px 35px; /* Bigger button */
-  font-size: 1.2rem;
-  border-radius: 8px;
-  border: none;
-  background: linear-gradient(135deg, #FFD700, #FFA500);
-  color: #000;
-  cursor: pointer;
+.download-option {
+  display: inline-block;
+  padding: 12px 25px;
+  font-size: 1rem;
   font-weight: bold;
-  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.6);
-  transition: all 0.3s ease-in-out;
-  letter-spacing: 1px;
-  margin-bottom: 10px; /* Bring options closer */
+  border-radius: 6px;
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  color: #000;
+  text-decoration: none;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  transition: all 0.3s ease;
 }
 
-.gold-btn:hover {
-  background: linear-gradient(135deg, #FFA500, #FFD700);
-  transform: scale(1.08);
-  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.9);
+.download-option:hover {
+  background: linear-gradient(45deg, #FFA500, #FFD700);
+  transform: scale(1.05);
 }
 
 /* Mobile Optimization */
