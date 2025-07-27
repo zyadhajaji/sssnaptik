@@ -86,6 +86,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const showMoreBtn = document.querySelector('.show-more-btn');
 
   // Toggle FAQ answers
+ function toggleHiddenFAQs() {
+  const hiddenFaqs = document.querySelectorAll('.faq-item.hidden-faq');
+  hiddenFaqs.forEach((faq) => {
+    faq.classList.toggle('hidden-faq');
+  });
+
+  const showMoreBtn = document.querySelector('.show-more-btn');
+  showMoreBtn.textContent = document.querySelectorAll('.faq-item.hidden-faq').length > 0 
+    ? 'Show More' 
+    : 'Show Less';
+}
+
   faqItems.forEach((item) => {
     const question = item.querySelector('.faq-question');
     const answer = item.querySelector('.faq-answer');
