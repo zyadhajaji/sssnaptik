@@ -1,8 +1,16 @@
 // netlify/functions/download.js
-const fetch = require('node-fetch');
+const fetch = require('node-fetch'); // Make sure node-fetch v2.x is installed
 
 exports.handler = async (event) => {
   try {
+    if (event.httpMethod !== 'POST') {
+      return {
+        statusCode: 405,
+        headers: { "Access-Control-Allow-Origin": "*" },
+        body: JSON.stringify({ success: false, error: 'Method Not Allowed' })
+      };
+    }
+
     const { url, option } = JSON.parse(event.body || "{}");
 
     if (!url || !url.includes('tiktok.com')) {
@@ -44,6 +52,7 @@ exports.handler = async (event) => {
       statusCode: 200,
       headers: {
         "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
