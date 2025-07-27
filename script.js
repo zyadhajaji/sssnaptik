@@ -89,63 +89,19 @@ function skipAd() {
 }
 
   // Toggle FAQ answers
- function toggleHiddenFAQs() {
-  const hiddenFaqs = document.querySelectorAll('.faq-item.hidden-faq');
-  hiddenFaqs.forEach((faq) => {
-    faq.classList.toggle('hidden-faq');
-  });
-
-  const showMoreBtn = document.querySelector('.show-more-btn');
-  showMoreBtn.textContent = document.querySelectorAll('.faq-item.hidden-faq').length > 0 
-    ? 'Show More' 
-    : 'Show Less';
+function toggleFAQ(element) {
+  const faqItem = element.parentElement;
+  faqItem.classList.toggle('active');
 }
 
-  faqItems.forEach((item) => {
-    const question = item.querySelector('.faq-question');
-    const answer = item.querySelector('.faq-answer');
-    const icon = item.querySelector('.faq-icon');
-
-    question.addEventListener('click', () => {
-      item.classList.toggle('active');
-      question.setAttribute('aria-expanded', item.classList.contains('active'));
-
-      // Animate the answer
-      if (item.classList.contains('active')) {
-        answer.style.maxHeight = answer.scrollHeight + 'px';
-        icon.textContent = '-';
-      } else {
-        answer.style.maxHeight = 0;
-        icon.textContent = '+';
-      }
-    });
-
-    // Keyboard support (Enter or Space)
-    question.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        question.click();
-      }
-    });
+function showMoreFAQs() {
+  const hiddenItems = document.querySelectorAll('.hidden-faq');
+  hiddenItems.forEach(item => {
+    item.style.display = 'block';
   });
+  document.querySelector('.show-more-btn').style.display = 'none';
+}
 
-  // Show More Button functionality
-  if (showMoreBtn) {
-    showMoreBtn.addEventListener('click', () => {
-      const hiddenFaqs = document.querySelectorAll('.faq-item.hidden-faq');
-      hiddenFaqs.forEach((faq) => {
-        faq.classList.toggle('hidden-faq');
-      });
-
-      // Update button text
-      if (document.querySelectorAll('.faq-item.hidden-faq').length > 0) {
-        showMoreBtn.textContent = 'Show More';
-      } else {
-        showMoreBtn.textContent = 'Show Less';
-      }
-    });
-  }
-});
   // Create notification element if it doesn't exist
   let notification = document.getElementById('notification');
   if (!notification) {
