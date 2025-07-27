@@ -1,7 +1,8 @@
+// Show download options when URL is valid
 function showOptions() {
   const url = document.getElementById('tiktokUrl').value.trim();
   const optionsBox = document.getElementById('downloadOptions');
-console.log("Sending request:", { url, format });
+
   if (!url || !/^https?:\/\/(www\.)?tiktok\.com/.test(url)) {
     alert('Please paste a valid TikTok link.');
     return;
@@ -9,14 +10,13 @@ console.log("Sending request:", { url, format });
   optionsBox.style.display = 'block';
 }
 
+// Download selected option
 async function downloadOption(format) {
   const url = document.getElementById('tiktokUrl').value.trim();
-  const container = document.getElementById('downloadContainer');
-  container.innerHTML = `<p>Loading...</p>`;
+  const container = document.getElementById('downloadContainer') || createDownloadContainer();
+  container.innerHTML = `<p>Processing your video...</p>`;
 
   try {
-    console.log("Sending request to Netlify function with:", { url, option: format });
-
     const response = await fetch('/.netlify/functions/download', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -24,17 +24,22 @@ async function downloadOption(format) {
     });
 
     const data = await response.json();
-    console.log("Response from function:", data);
-
     if (!data.success) throw new Error(data.error || 'Download failed');
 
-    container.innerHTML = `<a href="${data.link}" target="_blank" class="gold-btn">Click to Download</a>`;
+    container.innerHTML = `<a href="${data.link}" download="${data.filename}" class="gold-btn">Click to Download</a>`;
   } catch (err) {
-    console.error("Error in downloadOption:", err);
-    container.innerHTML = `<p style="color:red;">${err.message}</p>`;
+    container.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
   }
 }
-	// Initialize download container
+
+// Create download container dynamically
+function createDownloadContainer() {
+  const container = document.createElement('div');
+  container.id = 'downloadContainer';
+  container.style.textAlign = 'center';
+  document.body.appendChild(container);
+  return container;
+}	// Initialize download container
 	document.addEventListener('DOMContentLoaded', () => {
 	  const container = document.getElementById('downloadContainer');
 	  container.innerHTML = `
