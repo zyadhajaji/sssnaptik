@@ -30,8 +30,6 @@ header h1 {
   margin: 30px auto;
   text-align: center;
   box-shadow: 0px 0px 20px rgba(255, 215, 0, 0.3);
-  position: relative;
-  overflow: hidden;
 }
 
 .download-box input {
@@ -44,8 +42,12 @@ header h1 {
   font-size: 16px;
   text-align: center;
 }
-
-/* LOADING + ERROR */
+/* Add these critical styles */
+.download-box {
+  position: relative;
+  overflow: hidden;
+}
+ 
 .loading-indicator {
   display: flex;
   align-items: center;
@@ -55,7 +57,7 @@ header h1 {
   border-radius: 8px;
   margin-top: 15px;
 }
-
+ 
 .spinner {
   width: 20px;
   height: 20px;
@@ -64,11 +66,11 @@ header h1 {
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
-
+ 
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
-
+ 
 .error-message {
   color: #ff4444;
   padding: 15px;
@@ -76,21 +78,16 @@ header h1 {
   border-radius: 8px;
   margin-top: 15px;
 }
-
-/* DOWNLOAD OPTIONS */
-.options {
-  margin-top: 40px;
-  display: none;
-}
-
+/* DOWNLOAD OPTIONS CONTAINER */
 .options-flex {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 8px; /* Tighter spacing */
+  gap: 2px;
   margin-top: 20px;
 }
 
+/* PREMIUM DOWNLOAD BUTTONS */
 .options-flex button,
 .download-option {
   padding: 15px 25px;
@@ -107,29 +104,6 @@ header h1 {
   letter-spacing: 1px;
   min-width: 180px;
   text-align: center;
-  position: relative;
-  overflow: hidden;
-  animation: pulse-glow 2s infinite ease-in-out;
-}
-
-/* Size contrast */
-.options-flex button:nth-child(1) {
-  font-size: 1.1rem;
-  padding: 16px 28px;
-}
-.options-flex button:nth-child(2) {
-  font-size: 1rem;
-  padding: 14px 24px;
-}
-.options-flex button:nth-child(3) {
-  font-size: 0.9rem;
-  padding: 12px 20px;
-}
-
-/* Glow Animation */
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
-  50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.9); }
 }
 
 /* HOVER EFFECT */
@@ -139,7 +113,33 @@ header h1 {
   transform: scale(1.05) translateY(-3px);
   box-shadow: 0 10px 25px rgba(255, 215, 0, 0.7);
 }
+.options-flex button:nth-child(1) {
+  font-size: 1.1rem;
+  padding: 16px 28px; /* Bigger */
+}
 
+.options-flex button:nth-child(2) {
+  font-size: 1rem;
+  padding: 14px 24px; /* Medium */
+}
+
+.options-flex button:nth-child(3) {
+  font-size: 0.9rem;
+  padding: 12px 20px; /* Smaller */
+}
+/* MOBILE OPTIMIZATION */
+@media (max-width: 480px) {
+  .options-flex button,
+  .download-option {
+    width: 90%;
+    font-size: 0.9rem;
+  }
+}
+
+  .download-option {
+    width: 80%;
+  }
+}
 /* GOLD BUTTON */
 .gold-btn {
   padding: 12px 25px;
@@ -160,7 +160,50 @@ header h1 {
   box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
 }
 
-/* INFO SECTIONS */
+/* OPTIONS */
+.options {
+  margin-top: 90px;
+  display: none;
+}
+
+.options button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 70%;
+  transition: all 0.3s;
+  font-weight: 600;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
+
+.options button:hover {
+  background: linear-gradient(45deg, #FFA500, #FFD700);
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+}
+.options-flex button,
+.download-option {
+  position: relative;
+  overflow: hidden;
+}
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.9);
+  }
+}
+
+.options-flex button {
+  animation: pulse-glow 2s infinite ease-in-out;
+}
 section {
   max-width: 900px;
   margin: 40px auto;
@@ -174,6 +217,15 @@ section h2 {
   color: #fff;
   text-shadow: 0px 0px 3px #FFD700;
   margin-bottom: 10px;
+}
+/* SECTIONS */
+.info-section {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #1a1a1a;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
 }
 
 .info-section h2 {
@@ -214,6 +266,7 @@ section h2 {
   text-align: center;
 }
 
+
 .faq h2 {
   font-size: 2rem;
   color: #FFD700;
@@ -228,6 +281,7 @@ section h2 {
   text-align: left;
 }
 
+/* FAQ Question Button */
 .faq-question {
   width: 100%;
   background: none;
@@ -248,10 +302,13 @@ section h2 {
   color: #FFA500;
 }
 
+/* Icon styling */
 .faq-icon {
   font-size: 1.2rem;
   transition: transform 0.3s ease;
 }
+
+/* FAQ Answer */
 
 .faq-answer {
   max-height: 0;
@@ -261,16 +318,41 @@ section h2 {
   font-size: 0.95rem;
   line-height: 1.4;
 }
-
+/* When Active */
 .faq-item.active .faq-answer {
   max-height: 200px;
   padding: 10px 0;
 }
 
+
+
+
 /* ========================= */
 /* RESPONSIVE DESIGN CHANGES */
 /* ========================= */
 
+/* Flex container for options on mobile */
+.options-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media (min-width: 768px) {
+  .options-flex {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .options-flex button {
+    flex: 1;
+    min-width: 45%;
+  }
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   header h1 {
     font-size: 1.4rem;
@@ -283,12 +365,7 @@ section h2 {
 
   .download-box input {
     width: 70%;
-    font-size: 12px;
-  }
-
-  .options-flex {
-    flex-direction: column;
-    gap: 10px;
+    font-size: 10px;
   }
 
   .options button {
