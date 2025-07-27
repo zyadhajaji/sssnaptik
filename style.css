@@ -3,7 +3,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   background-color: #0e0e0e;
   color: #fff;
-  line-height: 1.8;
+  line-height: 1.6;
 }
 
 /* HEADER */
@@ -24,12 +24,12 @@ header h1 {
 .download-box {
   background: linear-gradient(145deg, #1a1a1a, #0b0b0b);
   border: 2px solid #FFD700;
-  padding: 20px 20px; /* Reduced padding */
+  padding: 30px 20px;
   border-radius: 20px;
   max-width: 600px;
   margin: 30px auto;
   text-align: center;
-  box-shadow: 0px 0px 20px rgba(350, 215, 0, 0.3);
+  box-shadow: 0px 0px 20px rgba(255, 215, 0, 0.3);
 }
 
 .download-box input {
@@ -38,10 +38,12 @@ header h1 {
   border-radius: 8px;
   border: none;
   outline: none;
-  margin-bottom: 10px; /* Reduced margin */
+  margin-bottom: 15px;
   font-size: 16px;
   text-align: center;
 }
+
+/* GOLD BUTTON */
 .gold-btn {
   padding: 12px 25px;
   font-size: 1rem;
@@ -51,43 +53,33 @@ header h1 {
   color: #000;
   cursor: pointer;
   font-weight: bold;
-  box-shadow: 0 0 10px rgba(300, 200, 0, 0.5);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
   transition: all 0.3s ease-in-out;
 }
 
 .gold-btn:hover {
   background: linear-gradient(45deg, #FFA500, #FFD700);
   transform: scale(1.05);
-  box-shadow: 0 0 50px rgba(255, 215, 0, 0.8);
-}
-
-
-/* Mobile Optimization */
-@media (max-width: 480px) {
-  .gold-btn {
-    width: 90%;
-    padding: 14px;
-    font-size: 1.1rem;
-  }
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
 }
 
 /* OPTIONS */
 .options {
-  margin-top: 10px; /* Reduced spacing */
+  margin-top: 20px;
   display: none;
 }
 
 .options button {
   display: block;
-  margin: 6px auto; /* Closer spacing between buttons */
-  padding: 8px 18px; /* Slightly smaller buttons */
-  font-size: 14px;
+  margin: 10px auto;
+  padding: 10px 20px;
+  font-size: 16px;
   background: linear-gradient(45deg, #FFD700, #FFA500);
   color: #000;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  width: 65%; /* Slightly narrower */
+  width: 70%;
   transition: all 0.3s;
   font-weight: 600;
   box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
@@ -97,39 +89,6 @@ header h1 {
   background: linear-gradient(45deg, #FFA500, #FFD700);
   transform: scale(1.05);
   box-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
-}
-#downloadOptions {
-  margin-top: 30px; /* Extra space above */
-  text-align: center;
-}
-
-.download-option {
-  display: inline-block;
-  padding: 14px 30px;
-  margin-top: 20px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  border-radius: 10px;
-  background: linear-gradient(145deg, #FFD700, #FFA500);
-  color: #000;
-  text-decoration: none;
-  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.6);
-  transition: all 0.3s ease;
-}
-
-.download-option:hover {
-  background: linear-gradient(145deg, #FFA500, #FFD700);
-  transform: scale(1.08);
-  box-shadow: 0 6px 25px rgba(255, 215, 0, 0.9);
-}
-
-/* Add a label above the download button */
-.download-ready-title {
-  font-size: 1.3rem;
-  color: #FFD700;
-  margin-bottom: 15px;
-  font-weight: 600;
-  text-shadow: 0 0 5px #FFA500;
 }
 
 /* SECTIONS */
@@ -169,6 +128,7 @@ header h1 {
   margin: 0 auto 10px auto;
   font-size: 18px;
 }
+
 
 section {
   max-width: 900px;
