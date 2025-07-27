@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+
 exports.handler = async (event) => {
   try {
     const { url, option } = JSON.parse(event.body || '{}');
@@ -8,9 +9,11 @@ exports.handler = async (event) => {
         body: JSON.stringify({ success: false, error: "No URL provided." }),
       };
     }
-    const apiUrl = `https://www.ssstik.io//api/?url=${encodeURIComponent(url)}`;
+
+    const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`;
     const response = await fetch(apiUrl);
     const data = await response.json();
+
     if (data && data.data) {
       let videoLink = '';
       if (option === 'hd') {
@@ -20,6 +23,7 @@ exports.handler = async (event) => {
       } else if (option === 'mp3') {
         videoLink = data.data.music;
       }
+
       return {
         statusCode: 200,
         body: JSON.stringify({ success: true, link: videoLink }),
@@ -32,7 +36,6 @@ exports.handler = async (event) => {
     }
   } catch (err) {
     console.error(err);
-    console.log('API Response:', data);
     return {
       statusCode: 500,
       body: JSON.stringify({ success: false, error: 'Failed to fetch video.' }),
