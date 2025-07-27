@@ -239,7 +239,7 @@ section h2 {
 .options-flex {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 @media (min-width: 768px) {
@@ -247,7 +247,7 @@ section h2 {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
+    gap: 8px;
   }
 
   .options-flex button {
