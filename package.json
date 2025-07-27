@@ -7,7 +7,8 @@
     "serve": "npx http-server . -p 3000"
   },
   "dependencies": {
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "cors": "^2.8.5"
   },
   "engines": {
     "node": "18.x"
