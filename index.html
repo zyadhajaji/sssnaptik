@@ -1,189 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TikTok Downloader</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      background-color: #0e0e0e;
-      color: #fff;
-      line-height: 1.6;
-    }
-
-    /* HEADER */
-    header {
-      text-align: center;
-      padding: 50px 20px;
-      background: linear-gradient(to bottom, #1a1a1a, #0e0e0e);
-    }
-
-    header h1 {
-      font-size: 2.5rem;
-      color: #fff;
-      text-shadow: 0px 0px 6px #FFD700;
-      font-weight: 700;
-    }
-
-    /* DOWNLOAD BOX */
-    .download-box {
-      background: linear-gradient(145deg, #1a1a1a, #0b0b0b);
-      border: 2px solid #FFD700;
-      padding: 30px 20px;
-      border-radius: 20px;
-      max-width: 600px;
-      margin: 30px auto;
-      text-align: center;
-      box-shadow: 0px 0px 20px rgba(255, 215, 0, 0.3);
-    }
-
-    .download-box input {
-      width: 80%;
-      padding: 12px;
-      border-radius: 8px;
-      border: none;
-      outline: none;
-      margin-bottom: 15px;
-      font-size: 16px;
-      text-align: center;
-    }
-
-    /* OPTIONS */
-    .options {
-      margin-top: 20px;
-      display: none;
-    }
-
-    .options button {
-      display: block;
-      margin: 8px auto;
-      padding: 8px 15px;
-      font-size: 14px;
-      background: linear-gradient(45deg, #FFD700, #FFA500);
-      color: #000;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      width: 65%;
-      transition: all 0.3s;
-      font-weight: 600;
-      box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
-    }
-
-    .options button:hover {
-      background: linear-gradient(45deg, #FFA500, #FFD700);
-      transform: scale(1.05);
-      box-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
-    }
-
-    /* DOWNLOAD READY BUTTON */
-    #downloadOptions {
-      margin-top: 30px;
-      text-align: center;
-    }
-
-    .download-ready-title {
-      font-size: 1.3rem;
-      color: #FFD700;
-      margin-bottom: 15px;
-      font-weight: 600;
-      text-shadow: 0 0 5px #FFA500;
-    }
-
-    .download-option {
-      display: inline-block;
-      padding: 14px 30px;
-      margin-top: 20px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border-radius: 10px;
-      background: linear-gradient(145deg, #FFD700, #FFA500);
-      color: #000;
-      text-decoration: none;
-      box-shadow: 0 4px 20px rgba(255, 215, 0, 0.6);
-      transition: all 0.3s ease;
-    }
-
-    .download-option:hover {
-      background: linear-gradient(145deg, #FFA500, #FFD700);
-      transform: scale(1.08);
-      box-shadow: 0 6px 25px rgba(255, 215, 0, 0.9);
-    }
-
-    @media (max-width: 480px) {
-      .download-box input {
-        width: 90%;
-      }
-      .options button {
-        width: 80%;
-        font-size: 13px;
-      }
-      .download-option {
-        width: 80%;
-        font-size: 1rem;
-        padding: 12px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- HEADER -->
   <header>
     <h1>The TikTok Downloader</h1>
-  </header>
-
-  <div class="download-box">
-    <input type="text" id="tiktokUrl" placeholder="Paste TikTok URL here..." />
-    <div class="options" id="downloadOptions">
-      <button onclick="downloadOption('watermark')">Download with Watermark</button>
-      <button onclick="downloadOption('hd')">Download 4K HD (No Watermark)</button>
-      <button onclick="downloadOption('mp3')">Download MP3 (Audio Only)</button>
+    <div class="download-box">
+      <input type="text" id="tiktokUrl" placeholder="Paste TikTok URL here...">
+      <button class="gold-btn" onclick="showOptions()">Download</button>
+      <div class="options" id="downloadOptions">
+        <button onclick="downloadOption('watermark')">Download with Watermark</button>
+        <button onclick="downloadOption('hd')">Download 4K HD (No Watermark)</button>
+        <button onclick="downloadOption('mp3')">Download MP3 (Audio Only)</button>
+        <button onclick="downloadOption('app')">Use App</button>
+      </div>
     </div>
-  </div>
-
-  <script>
-    function downloadOption(option) {
-      const url = document.getElementById("tiktokUrl").value.trim();
-      const optionsBox = document.getElementById("downloadOptions");
-
-      if (!url || !url.includes('tiktok.com')) {
-        optionsBox.innerHTML = `<p style="color:red;">Please paste a valid TikTok URL</p>`;
-        return;
-      }
-
-      optionsBox.innerHTML = `<p style="color:gold;">Fetching your download link...</p>`;
-
-      fetch('/.netlify/functions/download', {
-        method: 'POST',
-        body: JSON.stringify({ url, option })
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.success) {
-            optionsBox.innerHTML = `
-              <div class="download-ready-title">Your Download is Ready!</div>
-            `;
-
-            const downloadLink = document.createElement('a');
-            downloadLink.href = data.link;
-            downloadLink.download = data.filename;
-            downloadLink.textContent = 'Download Video Now';
-            downloadLink.className = 'download-option';
-
-            optionsBox.appendChild(downloadLink);
-          } else {
-            optionsBox.innerHTML = `<p style="color:red;">${data.error}</p>`;
-          }
-        })
-        .catch(() => {
-          optionsBox.innerHTML = `<p style="color:red;">Failed to get the video. Try again.</p>`;
-        });
-    }
-  </script>
-</body>
-</header>
-
+  </header>
 <script src="script.js"></script>
  
   <!-- HOW TO SECTION -->
