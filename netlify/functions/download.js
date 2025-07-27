@@ -8,7 +8,7 @@ exports.handler = async (event) => {
         body: JSON.stringify({ success: false, error: "No URL provided." }),
       };
     }
-    const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`;
+    const apiUrl = `https://www.ssstik.io//api/?url=${encodeURIComponent(url)}`;
     const response = await fetch(apiUrl);
     const data = await response.json();
     if (data && data.data) {
