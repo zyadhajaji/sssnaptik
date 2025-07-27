@@ -139,59 +139,39 @@
   </section>
 <script src="script.js"></script>
 <script>
-  // Trigger download after ad or other event
-  function showDownloadLink(option = 'hd') {
-    const url = document.getElementById('tiktokUrl').value.trim();
-    const optionsBox = document.getElementById('downloadOptions');
-
-    // Clear previous messages
-    optionsBox.innerHTML = '';
+  function downloadOption(option) {
+    const url = document.getElementById("tiktokUrl").value.trim();
+    const optionsBox = document.getElementById("downloadOptions");
 
     if (!url || !url.includes('tiktok.com')) {
-      optionsBox.innerHTML = `<p style="color:red;">Please paste a valid TikTok URL.</p>`;
+      optionsBox.innerHTML = `<p style="color:red;">Please paste a valid TikTok URL</p>`;
       return;
     }
 
-    // Optional loading message
-    optionsBox.innerHTML = `<p style="color:yellow;">Fetching your download link...</p>`;
+    optionsBox.innerHTML = `<p style="color:gold;">Fetching your download link...</p>`;
 
-    fetch(`/.netlify/functions/download`, {
+    fetch('/.netlify/functions/download', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url, option })
     })
       .then(res => res.json())
       .then(data => {
         if (data.success) {
-          // Create clickable link
-          const downloadLink = document.createElement('a');
-          downloadLink.href = data.link;
-          downloadLink.download = data.filename;
-          downloadLink.textContent = 'Download Now';
-          downloadLink.className = 'download-option';
-          downloadLink.style.display = 'block';
-          downloadLink.style.marginTop = '15px';
-
-          // Replace loading message with link
-          optionsBox.innerHTML = '';
-          optionsBox.appendChild(downloadLink);
-
-          // Trigger download automatically
-          downloadLink.click();
+          optionsBox.innerHTML = `
+            <a href="${data.link}" class="gold-btn" download="${data.filename}">
+              Download Now
+            </a>
+          `;
         } else {
           optionsBox.innerHTML = `<p style="color:red;">${data.error}</p>`;
         }
       })
-      .catch(err => {
-        console.error(err);
-        optionsBox.innerHTML = `<p style="color:red;">Something went wrong.</p>`;
+      .catch(() => {
+        optionsBox.innerHTML = `<p style="color:red;">Failed to get the video. Try again.</p>`;
       });
   }
-
-  // Example: Auto trigger download after 30s ad (or custom event)
-  // Call this function directly after your ad logic:
-  // setTimeout(() => showDownloadLink('hd'), 30000);
 </script>
+
 
 </body>
 
