@@ -42,7 +42,8 @@ exports.handler = async (event) => {
       },
       body: JSON.stringify({
         success: true,
-        link: `/.netlify/functions/proxy?file=${encodeURIComponent(videoLink)}`,
+        link: /.netlify/functions/proxy?file=<tiktok-video-link>
+
         filename: `tiktok_${Date.now()}.${option === 'mp3' ? 'mp3' : 'mp4'}`
       })
     };
