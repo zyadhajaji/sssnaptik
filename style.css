@@ -238,11 +238,11 @@ section h2 {
   }
   .download-box {
     max-width: 70%;
-    padding: 15px;
+    padding: 10px;
   }
   .download-box input {
-    width: 100%;
-    font-size: 14px;
+    width: 70%;
+    font-size: 10px;
   }
   .options button {
     width: 100%;
