@@ -1,16 +1,13 @@
-// Global variables
-let adTimer;
-let skipTimer;
 function showOptions() {
   const url = document.getElementById('tiktokUrl').value.trim();
   const optionsBox = document.getElementById('downloadOptions');
   if (url === '') {
-    // Use a more user-friendly notification instead of alert
-    showNotification('Please paste a TikTok link first.');
+    alert('Please paste a TikTok link first.');
     return;
   }
   optionsBox.style.display = 'block';
 }
+
 async function downloadOption(option) {
   const url = document.getElementById('tiktokUrl').value.trim();
   if (!url) {
@@ -18,7 +15,7 @@ async function downloadOption(option) {
     return;
   }
   try {
-    const response = await fetch('/.netlify/functions/download', {  // Updated URL
+    const response = await fetch('/api/download', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url, option })
@@ -34,61 +31,7 @@ async function downloadOption(option) {
     alert('Something went wrong.');
   }
 }
-    const data = await response.json();
-    // Reset button state
-    downloadBtn.textContent = originalText;
-    downloadBtn.disabled = false;
-    if (data.success && data.link) {
-      if (option === 'hd') {
-        // Show ad for 4K download
-        showAd(data.link);
-      } else {
-        // Direct download for other options
-        window.open(data.link, '_blank');
-      }
-    } else {
-      showNotification(data.error || 'Error fetching video.');
-    }
-  } catch (err) {
-    console.error(err);
-    showNotification('Something went wrong.');
-    // Reset button state in case of error
-    const downloadBtn = event.target;
-    downloadBtn.textContent = 'Download';
-    downloadBtn.disabled = false;
-  }
-}
-function showAd(videoLink) {
-  const adContainer = document.getElementById('adContainer');
-  const skipBtn = document.getElementById('skipAdBtn');
-  // Show ad container
-  adContainer.style.display = 'block';
-  // Set video link as data attribute
-  adContainer.dataset.videoLink = videoLink;
-  // Start ad timer (30 seconds)
-  adTimer = setTimeout(() => {
-    // Hide ad container
-    adContainer.style.display = 'none';
-    // Open video link
-    window.open(videoLink, '_blank');
-  }, 30000);
-  // Show skip button after 10 seconds
-  setTimeout(() => {
-    skipBtn.style.display = 'inline-block';
-  }, 10000);
-}
-function skipAd() {
-  // Clear the ad timer
-  clearTimeout(adTimer);
-  // Get the video link from the container
-  const videoLink = document.getElementById('adContainer').dataset.videoLink;
-  // Hide the ad container
-  document.getElementById('adContainer').style.display = 'none';
-  // Open the video link
-  window.open(videoLink, '_blank');
-}
 
-  // Toggle FAQ answers
 function toggleFAQ(element) {
   const faqItem = element.parentElement;
   faqItem.classList.toggle('active');
