@@ -12,15 +12,17 @@ exports.handler = async (event) => {
     const response = await fetch(apiUrl);
     const data = await response.json();
 
-    if (data?.data) {
+    if (data && data.data) {
       let videoLink = '';
 
-      if (option === 'hd') videoLink = data.data.play;
-      else if (option === 'watermark') videoLink = data.data.wmplay;
-      else if (option === 'mp3') videoLink = data.data.music;
-
-      if (!videoLink) {
-        return { statusCode: 500, body: JSON.stringify({ success: false, error: "Could not get download link." }) };
+      if (option === 'hd') {
+        videoLink = data.data.play;  // HD no watermark
+      } else if (option === 'watermark') {
+        videoLink = data.data.wmplay;
+      } else if (option === 'mp3') {
+        videoLink = data.data.music;
+      } else {
+        videoLink = data.data.play;
       }
 
       return {
