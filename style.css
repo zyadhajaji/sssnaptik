@@ -98,12 +98,12 @@ header h1 {
   .gold-btn {
     width: 80%;
     font-size: 1.1rem;
-    padding: 14px 0; /* More prominent */
+    padding: 11px 0; /* More prominent */
   }
 
   .options button {
-    width: 75%;
-    font-size: 13px;
+    width: 40%;
+    font-size: 9px;
     padding: 8px 0;
   }
 }
