@@ -45,8 +45,8 @@ header h1 {
 
 /* GOLD BUTTON */
 .gold-btn {
-  padding: 14px 30px; /* Bigger button */
-  font-size: 1.1rem;
+  padding: 10px 20px; /* Bigger button */
+  font-size: 0.9rem;
   border-radius: 8px;
   border: none;
   background: linear-gradient(45deg, #FFD700, #FFA500);
@@ -97,14 +97,14 @@ header h1 {
 @media (max-width: 480px) {
   .gold-btn {
     width: 80%;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     padding: 11px 0; /* More prominent */
   }
 
   .options button {
-    width: 40%;
+    width: 25%;
     font-size: 9px;
-    padding: 8px 0;
+    padding: 2px 0;
   }
 }
 /* SECTIONS */
