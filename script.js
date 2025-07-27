@@ -9,12 +9,9 @@ function showOptions() {
   optionsBox.style.display = 'block';
 }
 
-// Download Option Function
 async function downloadOption(format) {
   const url = document.getElementById('tiktokUrl').value.trim();
   const container = document.getElementById('downloadContainer');
-
-  console.log("Download button clicked with format:", format, "URL:", url); // DEBUG
 
   container.innerHTML = `<div class="loading-indicator">
     <div class="spinner"></div><p>Processing video...</p>
@@ -27,18 +24,17 @@ async function downloadOption(format) {
       body: JSON.stringify({ url, option: format })
     });
 
-    console.log("Function Response Status:", response.status); // DEBUG
     const data = await response.json();
-    console.log("Function Response Data:", data); // DEBUG
+    console.log('Function Response:', data);
 
     if (!data.success) throw new Error(data.error || 'Download failed');
-    window.open(data.link, "_blank");
+
+    container.innerHTML = `<a href="${data.link}" target="_blank" class="gold-btn">Click to Download</a>`;
   } catch (err) {
-    console.error("Error in downloadOption:", err); // DEBUG
+    console.error('Error:', err);
     container.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
   }
 }
-
 
 	// Initialize download container
 	document.addEventListener('DOMContentLoaded', () => {
