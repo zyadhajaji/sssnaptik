@@ -262,7 +262,7 @@ section h2 {
   }
 
   .download-box {
-    padding: 15px;
+    padding: 10px;
   }
 
   .download-box input {
@@ -271,8 +271,8 @@ section h2 {
   }
 
   .options button {
-    width: 100%;
-    font-size: 14px;
+    width: 85%;
+    font-size: 12px;
   }
 
   .steps {
