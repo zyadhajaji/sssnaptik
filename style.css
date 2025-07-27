@@ -57,27 +57,10 @@ header h1 {
 
 .gold-btn:hover {
   background: linear-gradient(45deg, #FFA500, #FFD700);
-  transform: scale(1.05);
+  transform: scale(0.75);
   box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
 }
 
-.download-option {
-  display: inline-block;
-  padding: 12px 25px;
-  font-size: 1rem;
-  font-weight: bold;
-  border-radius: 6px;
-  background: linear-gradient(45deg, #FFD700, #FFA500);
-  color: #000;
-  text-decoration: none;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-  transition: all 0.3s ease;
-}
-
-.download-option:hover {
-  background: linear-gradient(45deg, #FFA500, #FFD700);
-  transform: scale(1.05);
-}
 
 /* Mobile Optimization */
 @media (max-width: 480px) {
