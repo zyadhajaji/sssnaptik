@@ -51,13 +51,13 @@ header h1 {
   color: #000;
   cursor: pointer;
   font-weight: bold;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  box-shadow: 0 0 10px rgba(255, 280, 0, 0.5);
   transition: all 0.3s ease-in-out;
 }
 
 .gold-btn:hover {
   background: linear-gradient(45deg, #FFA500, #FFD700);
-  transform: scale(0.75);
+  transform: scale(1.05);
   box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
 }
 
