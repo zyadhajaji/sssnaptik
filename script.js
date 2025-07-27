@@ -1,3 +1,4 @@
+// Show download options if a valid TikTok URL is entered
 function showOptions() {
   const url = document.getElementById('tiktokUrl').value.trim();
   const optionsBox = document.getElementById('downloadOptions');
@@ -6,72 +7,62 @@ function showOptions() {
     alert('Please paste a valid TikTok link.');
     return;
   }
+
   optionsBox.style.display = 'block';
 }
 
+// Download option handler
 async function downloadOption(format) {
   const url = document.getElementById('tiktokUrl').value.trim();
-  const container = document.getElementById('downloadContainer') || createDownloadContainer();
-  container.innerHTML = `<p>Processing your video...</p>`;
+  const container = document.getElementById('downloadContainer');
+
+  if (!url || !/^https?:\/\/(www\.)?tiktok\.com/.test(url)) {
+    alert('Please paste a valid TikTok link.');
+    return;
+  }
+
+  // Loading indicator
+  container.innerHTML = `
+    <div class="loading-indicator">
+      <div class="spinner"></div>
+      <p>Processing video...</p>
+    </div>
+  `;
 
   try {
     const response = await fetch('/.netlify/functions/download', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({ url, option: format })
     });
 
     const data = await response.json();
     if (!data.success) throw new Error(data.error || 'Download failed');
 
-    container.innerHTML = `<a href="${data.link}" download="${data.filename}" class="gold-btn">Click to Download</a>`;
+    // Create download link
+    container.innerHTML = `
+      <a href="${data.link}" class="gold-btn" target="_blank" download>
+        Click to download
+      </a>
+    `;
   } catch (err) {
-    container.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+    container.innerHTML = `
+      <div class="error-message">
+        <p>Error: ${err.message}</p>
+        <button onclick="this.parentElement.remove()">Try Again</button>
+      </div>
+    `;
   }
 }
 
-// Create download container dynamically
-function createDownloadContainer() {
-  const container = document.createElement('div');
-  container.id = 'downloadContainer';
-  container.style.textAlign = 'center';
-  document.querySelector('.download-box').appendChild(container);
-  return container;
-}
-  // Create a new clickable link
-  const link = document.createElement('a');
-  link.id = 'downloadLink';
-  link.href = videoUrl;
-  link.textContent = 'Click here to download';
-  link.target = '_blank';
-  link.style.display = 'block';
-  link.style.marginTop = '15px';
-  link.style.color = '#FFD700';
-  link.style.fontWeight = 'bold';
-  link.style.textDecoration = 'underline';
-
-  downloadBox.appendChild(link);
-}
-    const data = await response.json();
-    if (data.success && data.link) {
-      container.style.display = 'block';
-      container.innerHTML = `<a href="${data.link}" target="_blank" class="gold-btn">Download 4K Video</a>`;
-    } else {
-      container.innerHTML = `<p style="color:red;">${data.error || 'Error fetching video.'}</p>`;
-    }
-  } catch (err) {
-    container.innerHTML = `<p style="color:red;">Something went wrong.</p>`;
-  }
-}
-
-function closeAdModal() {
-  document.getElementById('adModal').style.display = 'none';
-}
-
+// FAQ toggle
 function toggleFAQ(element) {
   element.parentElement.classList.toggle('active');
 }
 
+// Show hidden FAQs
 function showMoreFAQs() {
   document.querySelectorAll('.hidden-faq').forEach(item => {
     item.style.display = 'block';
