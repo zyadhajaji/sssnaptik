@@ -1,248 +1,293 @@
-{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-}
- 
-/* ======================
-   TYPOGRAPHY
-====================== */
-:root {
-  --primary-color: #FFD700;
-  --dark-1: #1a1a1a;
-  --dark-2: #2a2a2a;
-  --text-color: #ddd;
-  --border-color: rgba(255, 215, 0, 0.2);
-}
- 
 body {
-  background: var(--dark-1);
-  color: var(--text-color);
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #0e0e0e;
+  color: #fff;
   line-height: 1.6;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
- 
-h1 {
-  font-size: 2.5rem;
-  color: var(--primary-color);
-  margin-bottom: 2rem;
+/* HEADER */
+header {
+  text-align: center;
+  padding: 30px 20px;
+  background: linear-gradient(to bottom, #1a1a1a, #0e0e0e);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
- 
-h2 {
+/* Smaller & centered title */
+header h1 {
   font-size: 2rem;
-  color: white;
-  margin-bottom: 1.5rem;
+  color: #fff;
+  text-shadow: 0px 0px 6px #FFD700;
+  font-weight: 700;
+  margin-bottom: 20px;
 }
- 
-h3 {
+/* DOWNLOAD BOX */
+.download-box {
+  background: linear-gradient(145deg, #1a1a1a, #0b0b0b);
+  border: 2px solid #FFD700;
+  padding: 8px 6px; /* Smaller padding */
+  border-radius: 12px;
+  max-width: 240px;   /* Reduced width */
+  margin: 20px auto;
+  text-align: center;
+  box-shadow: 0px 0px 12px rgba(255, 215, 0, 0.3);
+}
+.download-box input {
+  width: 70%;         /* Smaller width */
+  padding: 6px;       /* Smaller padding */
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  margin-bottom: 10px;
+  font-size: 13px;    /* Smaller font size */
+  text-align: center;
+}
+/* GOLD BUTTON */
+.gold-btn {
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  border: none;
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  color: #000;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  transition: all 0.3s ease-in-out;
+}
+.gold-btn:hover {
+  background: linear-gradient(45deg, #FFA500, #FFD700);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+}
+/* OPTIONS */
+.options {
+  margin-top: 20px;
+  display: none;
+}
+.options button {
+  display: block;
+  margin: 8px auto;
+  padding: 8px 15px;
+  font-size: 15px;
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 70%;
+  transition: all 0.3s;
+  font-weight: 600;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
+.options button:hover {
+  background: linear-gradient(45deg, #FFA500, #FFD700);
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+}
+/* AD CONTAINER */
+.ad-container {
+  background: #1a1a1a;
+  border: 2px solid #FFD700;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 30px auto;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+.ad-message {
+  margin-bottom: 20px;
+}
+.ad-unit-container {
+  margin-bottom: 20px;
+}
+/* SECTIONS */
+.info-section {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #1a1a1a;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+.info-section h2 {
+  color: #FFD700;
+  margin-bottom: 10px;
+}
+.steps {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+.step {
+  text-align: center;
+  width: 30%;
+}
+.step h3 {
+  background: #FFD700;
+  color: #000;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 50%;
+  margin: 0 auto 10px auto;
+  font-size: 18px;
+}
+/* FAQ SECTION */
+.faq {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #1a1a1a;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+.faq h2 {
+  color: #FFD700;
+  margin-bottom: 20px;
+}
+.faq-item h3 {
+  color: #FFD700;
+  cursor: pointer;
+  margin: 10px 0;
+}
+.faq-item p {
+  display: none;
+  font-size: 14px;
+  color: #ddd;
+}
+.hidden-faq {
+  display: none;
+}
+section {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #1a1a1a;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.2);
+}
+section h2 {
+  color: #fff;
+  text-shadow: 0px 0px 3px #FFD700;
+  margin-bottom: 10px;
+}
+/* FAQ CONTAINER */
+.faq-container {
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  border-radius: 15px;
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+.faq-item {
+  text-align: left;
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+  padding-bottom: 10px;
+}
+.faq-item h3 {
   font-size: 1.2rem;
-  color: var(--primary-color);
-}
- 
-p {
-  font-size: 1rem;
-  color: var(--text-color);
-  margin-bottom: 1rem;
-}
- 
-/* ======================
-   LAYOUT SYSTEM
-====================== */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
- 
-.grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-}
- 
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-}
- 
-@media (max-width: 768px) {
-  .grid-2, .grid-3 {
-    grid-template-columns: 1fr;
-  }
-}
- 
-/* ======================
-   NAVIGATION
-====================== */
-.navbar {
-  position: fixed;
-  width: 100%;
-  padding: 1rem 2rem;
-  background: rgba(26, 26, 26, 0.95);
-  backdrop-filter: blur(10px);
-  z-index: 1000;
-}
- 
-.nav-links {
+  color: #FFD700;
+  cursor: pointer;
+  margin: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: color 0.3s;
 }
- 
-.nav-links a {
-  color: white;
-  text-decoration: none;
-  padding: 0.8rem 1.5rem;
-  transition: all 0.3s ease;
+.faq-item h3:hover {
+  color: #FFA500;
 }
- 
-.nav-links a:hover {
-  background: var(--primary-color);
-  color: var(--dark-1);
-}
- 
-/* ======================
-   BUTTONS
-====================== */
-.btn {
-  display: inline-block;
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 25px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
- 
-.gold-btn {
-  background: var(--primary-color);
-  color: var(--dark-1);
-}
- 
-.gold-btn:hover {
-  background: #FFA500;
-  transform: translateY(-2px);
-}
- 
-/* ======================
-   CARDS
-====================== */
-.card {
-  background: var(--dark-2);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 2rem;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
- 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}
- 
-/* ======================
-   FAQ SECTION
-====================== */
-.faq .faq-item {
-  margin-bottom: 1.5rem;
-}
- 
-.faq-question {
-  padding: 1rem;
-  background: var(--dark-2);
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
- 
-.faq-answer {
+.faq-item p {
   max-height: 0;
   overflow: hidden;
-  padding: 0 1rem 1rem 1rem;
-  transition: max-height 0.4s ease-out;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  font-size: 0.95rem;
+  color: #ddd;
+  margin: 0;
+  line-height: 1.4;
+  padding: 0 0;
 }
- 
-.faq-item.active .faq-answer {
-  max-height: 300px;
+/* Expanded answer */
+.faq-item.active p {
+  max-height: 200px;
+  padding: 10px 0 0 0;
 }
- 
-/* ======================
-   FOOTER
-====================== */
-.footer {
-  background: var(--dark-1);
-  padding: 4rem 2rem;
-  margin-top: 8rem;
+/* Show More Button */
+.show-more-btn {
+  margin-top: 15px;
+  width: 100%;
+  font-size: 1rem;
 }
- 
-.footer-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-}
- 
-/* ======================
-   ANIMATIONS
-====================== */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
- 
-.animate-fade {
-  animation: fadeIn 0.5s ease forwards;
-}
- 
-/* ======================
-   UTILITY
-====================== */
-.text-center {
-  text-align: center;
-}
- 
-.py-4 {
-  padding: 4rem 0;
-}
- 
-.my-2 {
-  margin: 2rem 0;
-}
- 
-.rounded {
-  border-radius: 8px;
-}
- 
-/* ======================
-   RESPONSIVE TYPOGRAPHY
-====================== */
+/* ========================= */
+/* RESPONSIVE DESIGN CHANGES */
+/* ========================= */
 @media (max-width: 768px) {
-  h1 {
-    font-size: 2rem;
+  header h1 {
+    font-size: 1.8rem;
+    padding: 10px;
   }
-  
-  h2 {
+  .download-box {
+    max-width: 70%;
+    padding: 15px;
+  }
+  .download-box input {
+    width: 100%;
+    font-size: 14px;
+  }
+  .options button {
+    width: 100%;
+    font-size: 14px;
+  }
+  .steps {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .step {
+    width: 100%;
+  }
+  section, .faq, .ad-container {
+    margin: 20px auto;
+    padding: 15px;
+  }
+}
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+  header h1 {
     font-size: 1.5rem;
   }
-  
-  p {
-    font-size: 0.9rem;
+  .gold-btn {
+    width: 100%;
+    padding: 10px;
   }
 }
- 
-/* ======================
-   PRINT STYLES
-====================== */
-@media print {
-  body {
-    color: black;
-    background: white;
-  }
-  
-  .navbar, .footer {
-    display: none;
-  }
-}
+	/* Ad-Specific Styles */
+	.adsbygoogle {
+	  display: block !important;
+	  min-height: 250px;
+	}
+	/* Legacy Animation Fix */
+	@keyframes fadeIn {
+	  0% { opacity: 0; }
+	  100% { opacity: 1; }
+	}
+	/* iOS Safari Fix */
+	@-webkit-keyframes fadeIn {
+	  0% { opacity: 0; }
+	  100% { opacity: 1; }
+	}
+	/* Ad Container Styling */
+	.ad-container {
+	  animation: fadeIn 0.3s ease-out;
+	}
