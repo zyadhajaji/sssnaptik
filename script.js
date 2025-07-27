@@ -94,13 +94,6 @@ function toggleFAQ(element) {
   faqItem.classList.toggle('active');
 }
 
-function showMoreFAQs() {
-  const hiddenItems = document.querySelectorAll('.hidden-faq');
-  hiddenItems.forEach(item => {
-    item.style.display = 'block';
-  });
-  document.querySelector('.show-more-btn').style.display = 'none';
-}
 
   // Create notification element if it doesn't exist
   let notification = document.getElementById('notification');
