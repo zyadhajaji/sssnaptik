@@ -128,7 +128,20 @@ header h1 {
   margin: 0 auto 10px auto;
   font-size: 18px;
 }
+section {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #1a1a1a;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.2);
+}
 
+section h2 {
+  color: #fff;
+  text-shadow: 0px 0px 3px #FFD700;
+  margin-bottom: 10px;
+}
 /* FAQ SECTION */
 .faq {
   max-width: 900px;
