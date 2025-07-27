@@ -45,9 +45,9 @@ header h1 {
 
 /* GOLD BUTTON */
 .gold-btn {
-  padding: 12px 25px;
-  font-size: 1rem;
-  border-radius: 6px;
+  padding: 14px 30px; /* Bigger button */
+  font-size: 1.1rem;
+  border-radius: 8px;
   border: none;
   background: linear-gradient(45deg, #FFD700, #FFA500);
   color: #000;
@@ -55,42 +55,58 @@ header h1 {
   font-weight: bold;
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
   transition: all 0.3s ease-in-out;
+  margin-top: 10px;
 }
 
 .gold-btn:hover {
   background: linear-gradient(45deg, #FFA500, #FFD700);
-  transform: scale(1.05);
+  transform: scale(1.07);
   box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
 }
 
 /* OPTIONS */
 .options {
-  margin-top: 20px;
+  margin-top: 15px;
   display: none;
+  text-align: center;
 }
 
 .options button {
   display: block;
-  margin: 10px auto;
-  padding: 10px 20px;
-  font-size: 16px;
+  margin: 6px auto; /* Closer spacing */
+  padding: 8px 15px; /* Smaller size */
+  font-size: 14px;
   background: linear-gradient(45deg, #FFD700, #FFA500);
   color: #000;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  width: 70%;
+  width: 60%; /* Centered smaller buttons */
   transition: all 0.3s;
   font-weight: 600;
-  box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+  box-shadow: 0 0 6px rgba(255, 215, 0, 0.5);
 }
 
 .options button:hover {
   background: linear-gradient(45deg, #FFA500, #FFD700);
   transform: scale(1.05);
-  box-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
 }
 
+/* MOBILE OPTIMIZATION */
+@media (max-width: 480px) {
+  .gold-btn {
+    width: 80%;
+    font-size: 1.1rem;
+    padding: 14px 0; /* More prominent */
+  }
+
+  .options button {
+    width: 75%;
+    font-size: 13px;
+    padding: 8px 0;
+  }
+}
 /* SECTIONS */
 /* HEADER */
 .info-section {
