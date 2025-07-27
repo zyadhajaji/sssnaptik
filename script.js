@@ -81,12 +81,6 @@ function startAd() {
   }, 1000);
 }
 
-function showDownloadLink(videoUrl) {
-  const downloadBox = document.querySelector('.download-box');
-
-  // Remove any previous link
-  const existingLink = document.getElementById('downloadLink');
-  if (existingLink) existingLink.remove();
 
   // Create a new clickable link
   const link = document.createElement('a');
