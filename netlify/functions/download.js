@@ -1,3 +1,4 @@
+// netlify/functions/download.js
 const fetch = require('node-fetch');
 
 exports.handler = async (event) => {
@@ -12,9 +13,13 @@ exports.handler = async (event) => {
       };
     }
 
-    // TikTok API
     const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`;
     const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch video data (status ${response.status})`);
+    }
+
     const data = await response.json();
 
     if (!data || !data.data) {
@@ -25,15 +30,17 @@ exports.handler = async (event) => {
       };
     }
 
+    // Prefer highest quality link
+    const hdLink = data.data.hdplay || data.data.play;
     const formatMap = {
-      hd: data.data.play,
+      hd: hdLink,
       watermark: data.data.wmplay,
       mp3: data.data.music,
       app: data.data.app_link
     };
-    const videoLink = formatMap[option] || data.data.play;
 
-    // Return a proxied download URL
+    const videoLink = formatMap[option] || hdLink;
+
     return {
       statusCode: 200,
       headers: {
@@ -42,13 +49,10 @@ exports.handler = async (event) => {
       },
       body: JSON.stringify({
         success: true,
-      link: `/.netlify/functions/proxy?file=${encodeURIComponent(videoLink)}`,
-
-
+        link: videoLink,
         filename: `tiktok_${Date.now()}.${option === 'mp3' ? 'mp3' : 'mp4'}`
       })
     };
-
   } catch (err) {
     console.error('Error:', err);
     return {
@@ -58,4 +62,5 @@ exports.handler = async (event) => {
     };
   }
 };
+
 
