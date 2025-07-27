@@ -8,31 +8,57 @@ function showOptions() {
   }
   optionsBox.style.display = 'block';
 }
-async function downloadOption(option) {
-  const url = document.getElementById('tiktokUrl').value.trim();
-  if (!url) {
-    alert('Please paste a TikTok link first.');
-    return;
-  }
-
-  try {
-    const response = await fetch('/api/download', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url, option })
-    });
-
-    const data = await response.json();
-    if (data.success && data.link) {
-      showDownloadLink(data.link);
-    } else {
-      alert(data.error || 'Error fetching video.');
-    }
-  } catch (err) {
-    console.error(err);
-    alert('Something went wrong.');
-  }
-}
+	// Updated download function
+	async function downloadOption(format) {
+	  const url = document.getElementById('tiktokUrl').value.trim();
+	  const container = document.getElementById('downloadContainer');
+	  const loading = document.createElement('div');
+	  loading.className = 'loading-indicator';
+	  loading.innerHTML = `
+	    <div class="spinner"></div>
+	    <p>Processing video...</p>
+	  `;
+	  container.innerHTML = '';
+	  container.appendChild(loading);
+	  try {
+	    const response = await fetch('https://your-api-domain.com/api/download', {
+	      method: 'POST',
+	      headers: {
+	        'Content-Type': 'application/json',
+	        'Accept': 'application/json'
+	      },
+	      body: JSON.stringify({ url, option: format })
+	    });
+	    const data = await response.json();
+	    if (!data.success) throw new Error(data.error || 'Download failed');
+	    // Create proper download link
+	    const a = document.createElement('a');
+	    a.href = data.link;
+	    a.download = data.filename || 'tiktok_video.mp4';
+	    a.textContent = 'Click to download';
+	    a.className = 'gold-btn';
+	    container.innerHTML = '';
+	    container.appendChild(a);
+	  } catch (err) {
+	    container.innerHTML = `
+	      <div class="error-message">
+	        <p>Error: ${err.message}</p>
+	        <button onclick="this.parentElement.remove()">Try Again</button>
+	      </div>
+	    `;
+	  }
+	}
+	// Initialize download container
+	document.addEventListener('DOMContentLoaded', () => {
+	  const container = document.getElementById('downloadContainer');
+	  container.innerHTML = `
+	    <div class="download-options">
+	      <button class="download-option" onclick="downloadOption('watermark')">WITH Watermark</button>
+	      <button class="download-option" onclick="downloadOption('hd')">4K NO WATERMARK</button>
+	      <button class="download-option" onclick="downloadOption('mp3')">MP3 AUDIO</button>
+	    </div>
+	  `;
+	});
 
 // ---- AD LOGIC ----
 function startAd() {
