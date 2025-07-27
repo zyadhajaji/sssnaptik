@@ -12,21 +12,23 @@
 <body>
   <!-- HEADER -->
   <header>
-    <h1>The TikTok Downloader</h1>
-    <div id="download_box">
-      <input type="text" id="tiktokUrl" placeholder="Paste TikTok URL here...">
-      <button class="gold-btn" onclick="showOptions()">Download</button>
-      <!-- FLEX CONTAINER FOR OPTIONS -->
-      <div class="options" id="downloadOptions">
-        <div class="options-flex">
-          <button onclick="downloadOption('watermark')">Download with Watermark</button>
-          <button onclick="downloadOption('hd')">Download 4K HD (No Watermark)</button>
-          <button onclick="downloadOption('mp3')">Download MP3 (Audio Only)</button>
-          <button onclick="downloadOption('app')">Use App</button>
-        </div>
+  <h1>The TikTok Downloader</h1>
+  <div class="download-box">
+    <input type="text" id="tiktokUrl" placeholder="Paste TikTok URL here...">
+    <button class="gold-btn" onclick="showOptions()">Download</button>
+    <div class="options" id="downloadOptions">
+      <div class="options-flex">
+        <button onclick="downloadOption('watermark')">Download with Watermark</button>
+        <button onclick="downloadOption('hd')">Download 4K HD (No Watermark)</button>
+        <button onclick="downloadOption('mp3')">Download MP3 (Audio Only)</button>
+        <button onclick="downloadOption('app')">Use App</button>
       </div>
     </div>
-  </header>
+    <!-- Add Download Container -->
+    <div id="downloadContainer"></div>
+  </div>
+</header>
+<script src="script.js"></script>
  
   <!-- HOW TO SECTION -->
   <section class="info-section">
