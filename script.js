@@ -1,51 +1,29 @@
-function isTikTokUrl(url) {
-  return /^(https?:\/\/)?(www\.)?tiktok\.com/.test(url);
-}
-
 function showOptions() {
   const url = document.getElementById('tiktokUrl').value.trim();
-  const errorMsg = document.getElementById('errorMsg');
   const optionsBox = document.getElementById('downloadOptions');
 
-  errorMsg.textContent = '';
-  if (!url) {
-    errorMsg.textContent = 'Please paste a TikTok link.';
+  if (!url || !/^https?:\/\/(www\.)?tiktok\.com/.test(url)) {
+    alert('Please paste a valid TikTok link.');
     return;
   }
-
-  if (!isTikTokUrl(url)) {
-    errorMsg.textContent = 'Please enter a valid TikTok URL.';
-    return;
-  }
-
   optionsBox.style.display = 'block';
-}
-
-let adTimer;
-function startAdTimer(option) {
-  const adMessage = document.getElementById('adMessage');
-  adMessage.textContent = 'Please wait 30 seconds...';
-  let seconds = 30;
-
-  clearInterval(adTimer);
-  adTimer = setInterval(() => {
-    seconds--;
-    adMessage.textContent = `Please wait ${seconds} seconds...`;
-    if (seconds <= 0) {
-      clearInterval(adTimer);
-      adMessage.textContent = 'Download ready!';
-      downloadOption(option);
-    }
-  }, 1000);
 }
 
 async function downloadOption(option) {
   const url = document.getElementById('tiktokUrl').value.trim();
-  if (!url || !isTikTokUrl(url)) {
-    alert('Please paste a valid TikTok link.');
+  if (!url) {
+    alert('Please paste a TikTok link first.');
     return;
   }
 
+  if (option === 'hd') {
+    document.getElementById('adModal').style.display = 'flex';
+  } else {
+    fetchDownloadLink(url, option);
+  }
+}
+
+async function fetchDownloadLink(url, option) {
   try {
     const response = await fetch('/.netlify/functions/download', {
       method: 'POST',
@@ -55,12 +33,7 @@ async function downloadOption(option) {
 
     const data = await response.json();
     if (data.success && data.link) {
-      const a = document.createElement('a');
-      a.href = data.link;
-      a.download = '';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      window.open(data.link, '_blank');
     } else {
       alert(data.error || 'Error fetching video.');
     }
@@ -70,9 +43,56 @@ async function downloadOption(option) {
   }
 }
 
+// ---- AD LOGIC ----
+function startAd() {
+  const countdownEl = document.getElementById('adCountdown');
+  const downloadContainer = document.getElementById('downloadContainer');
+  let seconds = 10;
+
+  document.getElementById('startAdBtn').style.display = 'none';
+  countdownEl.style.display = 'block';
+  countdownEl.innerText = `Please wait ${seconds} seconds...`;
+
+  const adTimer = setInterval(() => {
+    seconds--;
+    countdownEl.innerText = `Please wait ${seconds} seconds...`;
+    if (seconds <= 0) {
+      clearInterval(adTimer);
+      countdownEl.innerText = "Ad finished!";
+      showHDDownload();
+    }
+  }, 1000);
+}
+
+async function showHDDownload() {
+  const url = document.getElementById('tiktokUrl').value.trim();
+  const container = document.getElementById('downloadContainer');
+
+  try {
+    const response = await fetch('/.netlify/functions/download', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url, option: 'hd' })
+    });
+
+    const data = await response.json();
+    if (data.success && data.link) {
+      container.style.display = 'block';
+      container.innerHTML = `<a href="${data.link}" target="_blank" class="gold-btn">Download 4K Video</a>`;
+    } else {
+      container.innerHTML = `<p style="color:red;">${data.error || 'Error fetching video.'}</p>`;
+    }
+  } catch (err) {
+    container.innerHTML = `<p style="color:red;">Something went wrong.</p>`;
+  }
+}
+
+function closeAdModal() {
+  document.getElementById('adModal').style.display = 'none';
+}
+
 function toggleFAQ(element) {
-  const faqItem = element.parentElement;
-  faqItem.classList.toggle('active');
+  element.parentElement.classList.toggle('active');
 }
 
 function showMoreFAQs() {
