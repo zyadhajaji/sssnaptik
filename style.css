@@ -152,6 +152,7 @@ section h2 {
   text-align: center;
 }
 
+
 .faq h2 {
   font-size: 2rem;
   color: #FFD700;
@@ -194,16 +195,15 @@ section h2 {
 }
 
 /* FAQ Answer */
+
 .faq-answer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s ease, padding 0.4s ease;
+  transition: max-height 0.4s ease;
   color: #ddd;
   font-size: 0.95rem;
   line-height: 1.4;
-  padding: 0;
 }
-
 /* When Active */
 .faq-item.active .faq-answer {
   max-height: 200px;
