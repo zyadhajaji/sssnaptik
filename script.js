@@ -1,5 +1,3 @@
-// Show download options when URL is valid
-// Show download options
 function showOptions() {
   const url = document.getElementById('tiktokUrl').value.trim();
   const optionsBox = document.getElementById('downloadOptions');
@@ -11,7 +9,6 @@ function showOptions() {
   optionsBox.style.display = 'block';
 }
 
-// Download selected option
 async function downloadOption(format) {
   const url = document.getElementById('tiktokUrl').value.trim();
   const container = document.getElementById('downloadContainer') || createDownloadContainer();
