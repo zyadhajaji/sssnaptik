@@ -81,9 +81,6 @@ function skipAd() {
   // Open the video link
   window.open(videoLink, '_blank');
 }
-document.addEventListener("DOMContentLoaded", () => {
-  const faqItems = document.querySelectorAll('.faq-item');
-  const showMoreBtn = document.querySelector('.show-more-btn');
 
   // Toggle FAQ answers
  function toggleHiddenFAQs() {
