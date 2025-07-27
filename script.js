@@ -14,20 +14,26 @@ function showOptions() {
 async function downloadOption(option) {
   const url = document.getElementById('tiktokUrl').value.trim();
   if (!url) {
-    showNotification('Please paste a TikTok link first.');
+    alert('Please paste a TikTok link first.');
     return;
   }
   try {
-    // Show loading state
-    const downloadBtn = event.target;
-    const originalText = downloadBtn.textContent;
-    downloadBtn.textContent = 'Processing...';
-    downloadBtn.disabled = true;
     const response = await fetch('/.netlify/functions/download', {  // Updated URL
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url, option })
     });
+    const data = await response.json();
+    if (data.success && data.link) {
+      window.open(data.link, '_blank');
+    } else {
+      alert(data.error || 'Error fetching video.');
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Something went wrong.');
+  }
+}
     const data = await response.json();
     // Reset button state
     downloadBtn.textContent = originalText;
