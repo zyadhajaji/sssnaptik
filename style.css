@@ -42,7 +42,70 @@ header h1 {
   font-size: 16px;
   text-align: center;
 }
-
+/* Add these critical styles */
+.download-box {
+  position: relative;
+  overflow: hidden;
+}
+ 
+.loading-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 8px;
+  margin-top: 15px;
+}
+ 
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 215, 0, 0.3);
+  border-top-color: #FFD700;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+ 
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+ 
+.error-message {
+  color: #ff4444;
+  padding: 15px;
+  background: rgba(255, 44, 44, 0.1);
+  border-radius: 8px;
+  margin-top: 15px;
+}
+ 
+.download-option {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  color: #000;
+  font-weight: 600;
+}
+ 
+.download-option:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+ 
+/* Mobile optimization */
+@media (max-width: 480px) {
+  .download-options {
+    flex-direction: column;
+    gap: 8px;
+  }
+ 
+  .download-option {
+    width: 100%;
+  }
+}
 /* GOLD BUTTON */
 .gold-btn {
   padding: 12px 25px;
