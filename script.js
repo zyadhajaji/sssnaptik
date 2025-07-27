@@ -8,46 +8,33 @@ function showOptions() {
   }
   optionsBox.style.display = 'block';
 }
-	// Updated download function
-	async function downloadOption(format) {
-	  const url = document.getElementById('tiktokUrl').value.trim();
-	  const container = document.getElementById('downloadContainer');
-	  const loading = document.createElement('div');
-	  loading.className = 'loading-indicator';
-	  loading.innerHTML = `
-	    <div class="spinner"></div>
-	    <p>Processing video...</p>
-	  `;
-	  container.innerHTML = '';
-	  container.appendChild(loading);
-	  try {
-	    const response = await fetch('https://your-api-domain.com/api/download', {
-	      method: 'POST',
-	      headers: {
-	        'Content-Type': 'application/json',
-	        'Accept': 'application/json'
-	      },
-	      body: JSON.stringify({ url, option: format })
-	    });
-	    const data = await response.json();
-	    if (!data.success) throw new Error(data.error || 'Download failed');
-	    // Create proper download link
-	    const a = document.createElement('a');
-	    a.href = data.link;
-	    a.download = data.filename || 'tiktok_video.mp4';
-	    a.textContent = 'Click to download';
-	    a.className = 'gold-btn';
-	    container.innerHTML = '';
-	    container.appendChild(a);
-	  } catch (err) {
-	    container.innerHTML = `
-	      <div class="error-message">
-	        <p>Error: ${err.message}</p>
-	        <button onclick="this.parentElement.remove()">Try Again</button>
-	      </div>
-	    `;
-	  }
-	}
+
+// Download Option Function
+async function downloadOption(format) {
+  const url = document.getElementById('tiktokUrl').value.trim();
+  const container = document.getElementById('downloadContainer');
+
+  container.innerHTML = `<div class="loading-indicator">
+    <div class="spinner"></div><p>Processing video...</p>
+  </div>`;
+
+  try {
+    const response = await fetch('/.netlify/functions/download', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url, option: format })
+    });
+
+    const data = await response.json();
+
+    if (!data.success) throw new Error(data.error || 'Download failed');
+
+    container.innerHTML = `<a href="${data.link}" target="_blank" class="gold-btn">Click to Download</a>`;
+  } catch (err) {
+    container.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+  }
+}
+
 	// Initialize download container
 	document.addEventListener('DOMContentLoaded', () => {
 	  const container = document.getElementById('downloadContainer');
