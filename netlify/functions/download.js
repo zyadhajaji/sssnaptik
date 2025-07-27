@@ -3,9 +3,8 @@ const fetch = require('node-fetch');
 exports.handler = async (event) => {
   try {
     const { url, option } = JSON.parse(event.body);
-
-    if (!url || !/^https?:\/\/(www\.)?tiktok\.com/.test(url)) {
-      return { statusCode: 400, body: JSON.stringify({ success: false, error: "Invalid TikTok URL." }) };
+    if (!url) {
+      return { statusCode: 400, body: JSON.stringify({ success: false, error: "No URL provided." }) };
     }
 
     const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`;
@@ -14,16 +13,9 @@ exports.handler = async (event) => {
 
     if (data && data.data) {
       let videoLink = '';
-
-      if (option === 'hd') {
-        videoLink = data.data.play;  // HD no watermark
-      } else if (option === 'watermark') {
-        videoLink = data.data.wmplay;
-      } else if (option === 'mp3') {
-        videoLink = data.data.music;
-      } else {
-        videoLink = data.data.play;
-      }
+      if (option === 'hd') videoLink = data.data.play;
+      else if (option === 'watermark') videoLink = data.data.wmplay;
+      else if (option === 'mp3') videoLink = data.data.music;
 
       return {
         statusCode: 200,
