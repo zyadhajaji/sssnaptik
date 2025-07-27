@@ -1,7 +1,7 @@
 function showOptions() {
   const url = document.getElementById('tiktokUrl').value.trim();
   const optionsBox = document.getElementById('downloadOptions');
-
+console.log("Sending request:", { url, format });
   if (!url || !/^https?:\/\/(www\.)?tiktok\.com/.test(url)) {
     alert('Please paste a valid TikTok link.');
     return;
