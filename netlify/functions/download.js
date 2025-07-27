@@ -1,3 +1,4 @@
+// netlify/functions/download.js
 exports.handler = async (event) => {
   try {
     const { url, option } = JSON.parse(event.body || "{}");
@@ -5,17 +6,24 @@ exports.handler = async (event) => {
     if (!url || !url.includes('tiktok.com')) {
       return {
         statusCode: 400,
+        headers: { "Access-Control-Allow-Origin": "*" },
         body: JSON.stringify({ success: false, error: 'Invalid TikTok URL' })
       };
     }
 
     const apiUrl = `https://api.tikwm.com/?url=${encodeURIComponent(url)}`;
     const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch video data (status ${response.status})`);
+    }
+
     const data = await response.json();
 
-    if (!data?.data) {
+    if (!data || !data.data) {
       return {
         statusCode: 404,
+        headers: { "Access-Control-Allow-Origin": "*" },
         body: JSON.stringify({ success: false, error: 'Video not found' })
       };
     }
@@ -31,7 +39,10 @@ exports.handler = async (event) => {
 
     return {
       statusCode: 200,
-      headers: { "Access-Control-Allow-Origin": "*" },
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
         success: true,
         link: videoLink,
@@ -42,7 +53,8 @@ exports.handler = async (event) => {
     console.error('Error:', err);
     return {
       statusCode: 500,
-      body: JSON.stringify({ success: false, error: err.message || 'Server error' })
+      headers: { "Access-Control-Allow-Origin": "*" },
+      body: JSON.stringify({ success: false, error: err.message || 'Internal Server Error' })
     };
   }
 };
