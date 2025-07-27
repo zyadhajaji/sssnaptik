@@ -1,17 +1,4 @@
 [build]
-  publish = "public"
+  publish = "."
   command = "npm install && npm run build"
   functions = "netlify/functions"
- 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  force = true
- 
-[build.environment]
-  NODE_VERSION = "18.12.1"
-  API_URL = "https://your-api-domain.com"
- 
-[functions]
-  directory = "netlify/functions"
