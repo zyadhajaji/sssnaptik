@@ -55,17 +55,27 @@ function startAd() {
   }, 1000);
 }
 
-async function showHDDownload() {
-  const url = document.getElementById('tiktokUrl').value.trim();
-  const container = document.getElementById('downloadContainer');
+function showDownloadLink(videoUrl) {
+  const downloadBox = document.querySelector('.download-box');
 
-  try {
-    const response = await fetch('/.netlify/functions/download', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url, option: 'hd' })
-    });
+  // Remove any previous link
+  const existingLink = document.getElementById('downloadLink');
+  if (existingLink) existingLink.remove();
 
+  // Create a new clickable link
+  const link = document.createElement('a');
+  link.id = 'downloadLink';
+  link.href = videoUrl;
+  link.textContent = 'Click here to download';
+  link.target = '_blank';
+  link.style.display = 'block';
+  link.style.marginTop = '15px';
+  link.style.color = '#FFD700';
+  link.style.fontWeight = 'bold';
+  link.style.textDecoration = 'underline';
+
+  downloadBox.appendChild(link);
+}
     const data = await response.json();
     if (data.success && data.link) {
       container.style.display = 'block';
