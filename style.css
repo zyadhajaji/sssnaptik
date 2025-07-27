@@ -98,6 +98,39 @@ header h1 {
   transform: scale(1.05);
   box-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
 }
+#downloadOptions {
+  margin-top: 30px; /* Extra space above */
+  text-align: center;
+}
+
+.download-option {
+  display: inline-block;
+  padding: 14px 30px;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #FFD700, #FFA500);
+  color: #000;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.6);
+  transition: all 0.3s ease;
+}
+
+.download-option:hover {
+  background: linear-gradient(145deg, #FFA500, #FFD700);
+  transform: scale(1.08);
+  box-shadow: 0 6px 25px rgba(255, 215, 0, 0.9);
+}
+
+/* Add a label above the download button */
+.download-ready-title {
+  font-size: 1.3rem;
+  color: #FFD700;
+  margin-bottom: 15px;
+  font-weight: 600;
+  text-shadow: 0 0 5px #FFA500;
+}
 
 /* SECTIONS */
 /* HEADER */
