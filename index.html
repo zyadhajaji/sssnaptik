@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+  
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>TikTok Downloader</title>
   <link rel="stylesheet" href="style.css">
-</head>
+  <!-- AdSense Script -->
+ <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1026231247283281" crossorigin="anonymous"></script>
+ </head>
 <body>
-  <!-- HEADER -->
-  <header>
-    <h1>The TikTok Downloader</h1>
-    <div class="download-box">
-      <input type="text" id="tiktokUrl" placeholder="Paste TikTok URL here...">
-      <button class="gold-btn" onclick="showOptions()">Download</button>
-      <div class="options" id="downloadOptions">
+<header>
+  <h1>The TikTok Downloader</h1>
+  <div class="download-box">
+    <input type="text" id="tiktokUrl" placeholder="Paste TikTok URL here...">
+    <button class="gold-btn" onclick="showOptions()">Download</button>
+    <div class="options" id="downloadOptions" style="display: block;">
+      <div class="options-flex">
         <button onclick="downloadOption('watermark')">Download with Watermark</button>
         <button onclick="downloadOption('hd')">Download 4K HD (No Watermark)</button>
         <button onclick="downloadOption('mp3')">Download MP3 (Audio Only)</button>
-        <button onclick="downloadOption('app')">Use App</button>
       </div>
     </div>
-  </header>
-<script src="script.js"></script>
+    <div id="downloadContainer" class="download-container"><a href="/.netlify/functions/proxy?file=https%3A%2F%2Fv16m-default.tiktokcdn.com%2F765e2fd74ad5b271b4d7f7de928b12cc%2F68864a22%2Fvideo%2Ftos%2Fmaliva%2Ftos-maliva-ve-85c255c799-us%2Fowa8QfB7BBx0ixIYAUiNhKIDKApEBusw8tAaoC%2F%3Fa%3D0%26bti%3DOUBzOTg7QGo6OjZAL3AjLTAzYCMxNDNg%26ch%3D0%26cr%3D0%26dr%3D0%26er%3D0%26lr%3Dall%26net%3D0%26cd%3D0%257C0%257C0%257C0%26cv%3D1%26br%3D3614%26bt%3D1807%26cs%3D0%26ds%3D6%26ft%3DEeF4ntZWD03Q12NvSq14WIxRSfYFpq_45SY%26mime_type%3Dvideo_mp4%26qs%3D0%26rc%3DZ2loaDc5NjQ0NTtpZWVoN0BpMzQ1eHY5cjM2NDQzZzM2NEBeYC1gXjMyXmIxYDYzNjAyYSNrbG0tMmRjNV5hLS1kLS9zcw%253D%253D%26vvpl%3D1%26l%3D2025072717454409F301D6ECD79CF61BF4%26btag%3De00090000" class="gold-btn" download="tiktok_1753609545086.mp4">Download Video</a></div>
+  </div>
+</header>
  
   <!-- HOW TO SECTION -->
   <section class="info-section">
