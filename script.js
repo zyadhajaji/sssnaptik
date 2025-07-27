@@ -32,8 +32,7 @@ async function downloadOption(format) {
     console.log("Function Response Data:", data); // DEBUG
 
     if (!data.success) throw new Error(data.error || 'Download failed');
-
-    container.innerHTML = `<a href="${data.link}" target="_blank" class="gold-btn">Click to Download</a>`;
+    window.open(data.link, "_blank");
   } catch (err) {
     console.error("Error in downloadOption:", err); // DEBUG
     container.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
