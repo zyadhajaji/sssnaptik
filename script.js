@@ -103,8 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-
-});
  
 // Show More Functionality
 function toggleHiddenFAQs() {
