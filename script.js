@@ -82,18 +82,21 @@ function skipAd() {
   window.open(videoLink, '_blank');
 }
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll('.faq-question').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const faqItem = btn.closest('.faq-item');
-      const answer = faqItem.querySelector('.faq-answer');
-      const icon = btn.querySelector('.faq-icon');
+  const faqItems = document.querySelectorAll('.faq-item');
+  const showMoreBtn = document.querySelector('.show-more-btn');
 
-      // Toggle active state
-      faqItem.classList.toggle('active');
-      btn.setAttribute('aria-expanded', faqItem.classList.contains('active'));
+  // Toggle FAQ answers
+  faqItems.forEach((item) => {
+    const question = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+    const icon = item.querySelector('.faq-icon');
 
-      // Animate answer
-      if (faqItem.classList.contains('active')) {
+    question.addEventListener('click', () => {
+      item.classList.toggle('active');
+      question.setAttribute('aria-expanded', item.classList.contains('active'));
+
+      // Animate the answer
+      if (item.classList.contains('active')) {
         answer.style.maxHeight = answer.scrollHeight + 'px';
         icon.textContent = '-';
       } else {
@@ -101,40 +104,30 @@ document.addEventListener("DOMContentLoaded", () => {
         icon.textContent = '+';
       }
     });
-  });
-});
- 
-// Show More Functionality
-function toggleHiddenFAQs() {
-  document.querySelectorAll('.hidden-faq').forEach((item) => {
-    item.classList.toggle('hidden-faq');
-  });
-  this.textContent = document.querySelectorAll('.hidden-faq').length > 0 ? 'Show More' : 'Show Less';
-}
 
- 
-    // Keyboard support
+    // Keyboard support (Enter or Space)
     question.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        item.click();
+        question.click();
       }
     });
   });
- 
-  // Show More Button (if needed)
-  if (faqItems.length > 3) {
-    showMoreBtn.style.display = 'block';
+
+  // Show More Button functionality
+  if (showMoreBtn) {
     showMoreBtn.addEventListener('click', () => {
-      faqItems.forEach((item, index) => {
-        if (index >= 3) {
-          item.style.display = item.style.display === 'none' ? 'block' : 'none';
-        }
+      const hiddenFaqs = document.querySelectorAll('.faq-item.hidden-faq');
+      hiddenFaqs.forEach((faq) => {
+        faq.classList.toggle('hidden-faq');
       });
-      showMoreBtn.textContent = 
-        showMoreBtn.textContent === 'Show More Questions' 
-        ? 'Show Less' 
-        : 'Show More Questions';
+
+      // Update button text
+      if (document.querySelectorAll('.faq-item.hidden-faq').length > 0) {
+        showMoreBtn.textContent = 'Show More';
+      } else {
+        showMoreBtn.textContent = 'Show Less';
+      }
     });
   }
 });
