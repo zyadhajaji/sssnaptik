@@ -2,15 +2,14 @@
   "name": "tiktok-downloader",
   "version": "1.0.0",
   "scripts": {
-    "build": "echo 'No build needed'",
-    "start": "npx http-server . -p 3000",
-    "serve": "npx http-server . -p 3000"
+    "build": "postcss style.css -o dist/styles.css",
+    "start": "node server.js",
+    "serve": "http-server public -p 3000"
   },
   "dependencies": {
-    "node-fetch": "^3.3.2",
-    "cors": "^2.8.5"
+    "node-fetch": "^2.6.7"
   },
-  "engines": {
-    "node": "18.x"
+  "devDependencies": {
+    "http-server": "^14.1.1"
   }
 }
