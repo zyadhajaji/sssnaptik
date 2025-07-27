@@ -32,6 +32,7 @@ exports.handler = async (event) => {
     }
   } catch (err) {
     console.error(err);
+    console.log('API Response:', data);
     return {
       statusCode: 500,
       body: JSON.stringify({ success: false, error: 'Failed to fetch video.' }),
