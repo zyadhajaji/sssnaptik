@@ -3,9 +3,8 @@ const fetch = require('node-fetch');
 exports.handler = async (event) => {
   try {
     const { url, option } = JSON.parse(event.body);
-    if (!url) {
-      return { statusCode: 400, body: JSON.stringify({ success: false, error: "No URL provided." }) };
-    }
+
+    if (!url) return { statusCode: 400, body: JSON.stringify({ success: false, error: 'No URL provided.' }) };
 
     const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`;
     const response = await fetch(apiUrl);
@@ -19,7 +18,7 @@ exports.handler = async (event) => {
 
       return {
         statusCode: 200,
-        body: JSON.stringify({ success: true, link: videoLink }),
+        body: JSON.stringify({ success: true, link: videoLink })
       };
     } else {
       return { statusCode: 404, body: JSON.stringify({ success: false, error: 'Video not found.' }) };
