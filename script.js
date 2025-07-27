@@ -1,13 +1,13 @@
-// Show download options if a valid TikTok URL is entered
+const TIKTOK_REGEX = /^https?:\/\/(www\.|m\.)?tiktok\.com|vm\.tiktok\.com/;
+
 function showOptions() {
   const url = document.getElementById('tiktokUrl').value.trim();
   const optionsBox = document.getElementById('downloadOptions');
 
-  if (!url || !/^https?:\/\/(www\.)?tiktok\.com/.test(url)) {
+  if (!url || !TIKTOK_REGEX.test(url)) {
     alert('Please paste a valid TikTok link.');
     return;
   }
-
   optionsBox.style.display = 'block';
 }
 
