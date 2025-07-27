@@ -10,8 +10,7 @@ exports.handler = async (event) => {
         body: JSON.stringify({ success: false, error: 'Invalid TikTok URL' })
       };
     }
-
-    const apiUrl = `https://api.tikwm.com/?url=${encodeURIComponent(url)}`;
+const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`;
     const response = await fetch(apiUrl);
 
     if (!response.ok) {
