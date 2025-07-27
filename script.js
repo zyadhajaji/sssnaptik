@@ -10,19 +10,27 @@ function showOptions() {
 
 async function downloadOption(option) {
   const url = document.getElementById('tiktokUrl').value.trim();
-  if (!url) {
-    alert('Please paste a TikTok link first.');
+  if (!url || !/^https?:\/\/(www\.)?tiktok\.com/.test(url)) {
+    alert('Please paste a valid TikTok link.');
     return;
   }
+
   try {
-    const response = await fetch('/api/download', {
+    const response = await fetch('/.netlify/functions/download', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url, option })
     });
+
     const data = await response.json();
     if (data.success && data.link) {
-      window.open(data.link, '_blank');
+      // Force direct download
+      const a = document.createElement('a');
+      a.href = data.link;
+      a.download = 'tiktok-video.mp4';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
     } else {
       alert(data.error || 'Error fetching video.');
     }
