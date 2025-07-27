@@ -1,4 +1,5 @@
 // Show download options when URL is valid
+// Show download options
 function showOptions() {
   const url = document.getElementById('tiktokUrl').value.trim();
   const optionsBox = document.getElementById('downloadOptions');
@@ -37,42 +38,9 @@ function createDownloadContainer() {
   const container = document.createElement('div');
   container.id = 'downloadContainer';
   container.style.textAlign = 'center';
-  document.body.appendChild(container);
+  document.querySelector('.download-box').appendChild(container);
   return container;
-}	// Initialize download container
-	document.addEventListener('DOMContentLoaded', () => {
-	  const container = document.getElementById('downloadContainer');
-	  container.innerHTML = `
-	    <div class="download-options">
-	      <button class="download-option" onclick="downloadOption('watermark')">WITH Watermark</button>
-	      <button class="download-option" onclick="downloadOption('hd')">4K NO WATERMARK</button>
-	      <button class="download-option" onclick="downloadOption('mp3')">MP3 AUDIO</button>
-	    </div>
-	  `;
-	});
-
-// ---- AD LOGIC ----
-function startAd() {
-  const countdownEl = document.getElementById('adCountdown');
-  const downloadContainer = document.getElementById('downloadContainer');
-  let seconds = 10;
-
-  document.getElementById('startAdBtn').style.display = 'none';
-  countdownEl.style.display = 'block';
-  countdownEl.innerText = `Please wait ${seconds} seconds...`;
-
-  const adTimer = setInterval(() => {
-    seconds--;
-    countdownEl.innerText = `Please wait ${seconds} seconds...`;
-    if (seconds <= 0) {
-      clearInterval(adTimer);
-      countdownEl.innerText = "Ad finished!";
-      showHDDownload();
-    }
-  }, 1000);
 }
-
-
   // Create a new clickable link
   const link = document.createElement('a');
   link.id = 'downloadLink';
