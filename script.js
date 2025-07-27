@@ -8,7 +8,6 @@ function showOptions() {
   }
   optionsBox.style.display = 'block';
 }
-
 async function downloadOption(option) {
   const url = document.getElementById('tiktokUrl').value.trim();
   if (!url) {
@@ -16,16 +15,8 @@ async function downloadOption(option) {
     return;
   }
 
-  if (option === 'hd') {
-    document.getElementById('adModal').style.display = 'flex';
-  } else {
-    fetchDownloadLink(url, option);
-  }
-}
-
-async function fetchDownloadLink(url, option) {
   try {
-    const response = await fetch('/.netlify/functions/download', {
+    const response = await fetch('/api/download', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url, option })
@@ -33,7 +24,7 @@ async function fetchDownloadLink(url, option) {
 
     const data = await response.json();
     if (data.success && data.link) {
-      window.open(data.link, '_blank');
+      showDownloadLink(data.link);
     } else {
       alert(data.error || 'Error fetching video.');
     }
