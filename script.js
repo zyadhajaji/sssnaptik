@@ -81,36 +81,35 @@ function skipAd() {
   // Open the video link
   window.open(videoLink, '_blank');
 }
-document.addEventListener('DOMContentLoaded', () => {
-  const faqItems = document.querySelectorAll('.faq-item');
-  const showMoreBtn = document.querySelector('.show-more-btn');
- 
-  // FAQ Accordion
-  faqItems.forEach(item => {
-    const question = item.querySelector('.faq-question');
+document.querySelectorAll('.faq-question').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const faqItem = btn.closest('.faq-item');
+    const answer = faqItem.querySelector('.faq-answer');
+    const icon = btn.querySelector('.faq-icon');
     
-    question.addEventListener('click', () => {
-      // Toggle active state
-      item.classList.toggle('active');
-      question.setAttribute(
-        'aria-expanded',
-        item.classList.contains('active')
-      );
-      
-      // Rotate icon
-      const icon = question.querySelector('.faq-icon');
-      icon.style.transform = item.classList.contains('active') 
-        ? 'rotate(180deg)' 
-        : 'rotate(0deg)';
-      
-      // Close other items
-      faqItems.forEach(otherItem => {
-        if (otherItem !== item && otherItem.classList.contains('active')) {
-          otherItem.classList.remove('active');
-          otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
-        }
-      });
-    });
+    // Toggle active state
+    faqItem.classList.toggle('active');
+    btn.setAttribute('aria-expanded', faqItem.classList.contains('active'));
+    
+    // Animation
+    if (faqItem.classList.contains('active')) {
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+      icon.textContent = '-';
+    } else {
+      answer.style.maxHeight = 0;
+      icon.textContent = '+';
+    }
+  });
+});
+ 
+// Show More Functionality
+function toggleHiddenFAQs() {
+  document.querySelectorAll('.hidden-faq').forEach((item) => {
+    item.classList.toggle('hidden-faq');
+  });
+  this.textContent = document.querySelectorAll('.hidden-faq').length > 0 ? 'Show More' : 'Show Less';
+}
+
  
     // Keyboard support
     question.addEventListener('keydown', (e) => {
