@@ -1,4 +1,4 @@
-const TIKTOK_REGEX = /^https?:\/\/(www\.|m\.)?tiktok\.com|vm\.tiktok\.com/;
+const TIKTOK_REGEX = /^https?:\/\/(www\.|m\.)?tiktok\.com|vt\.tiktok\.com/;
 
 function showOptions() {
   const url = document.getElementById('tiktokUrl').value.trim();
