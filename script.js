@@ -81,19 +81,62 @@ function skipAd() {
   // Open the video link
   window.open(videoLink, '_blank');
 }
-function toggleFAQ(element) {
-  const faqItem = element.parentElement;
-  faqItem.classList.toggle('active');
-}
-function showMoreFAQs() {
-  const hiddenItems = document.querySelectorAll('.hidden-faq');
-  hiddenItems.forEach(item => {
-    item.style.display = 'block';
+document.addEventListener('DOMContentLoaded', () => {
+  const faqItems = document.querySelectorAll('.faq-item');
+  const showMoreBtn = document.querySelector('.show-more-btn');
+ 
+  // FAQ Accordion
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    
+    question.addEventListener('click', () => {
+      // Toggle active state
+      item.classList.toggle('active');
+      question.setAttribute(
+        'aria-expanded',
+        item.classList.contains('active')
+      );
+      
+      // Rotate icon
+      const icon = question.querySelector('.faq-icon');
+      icon.style.transform = item.classList.contains('active') 
+        ? 'rotate(180deg)' 
+        : 'rotate(0deg)';
+      
+      // Close other items
+      faqItems.forEach(otherItem => {
+        if (otherItem !== item && otherItem.classList.contains('active')) {
+          otherItem.classList.remove('active');
+          otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+ 
+    // Keyboard support
+    question.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        item.click();
+      }
+    });
   });
-  document.querySelector('.show-more-btn').style.display = 'none';
-}
-// Modern notification function instead of using alerts
-function showNotification(message) {
+ 
+  // Show More Button (if needed)
+  if (faqItems.length > 3) {
+    showMoreBtn.style.display = 'block';
+    showMoreBtn.addEventListener('click', () => {
+      faqItems.forEach((item, index) => {
+        if (index >= 3) {
+          item.style.display = item.style.display === 'none' ? 'block' : 'none';
+        }
+      });
+      showMoreBtn.textContent = 
+        showMoreBtn.textContent === 'Show More Questions' 
+        ? 'Show Less' 
+        : 'Show More Questions';
+    });
+  }
+});
   // Create notification element if it doesn't exist
   let notification = document.getElementById('notification');
   if (!notification) {
