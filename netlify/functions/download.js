@@ -1,4 +1,6 @@
 // netlify/functions/download.js
+const fetch = require('node-fetch');
+
 exports.handler = async (event) => {
   try {
     const { url, option } = JSON.parse(event.body || "{}");
@@ -10,7 +12,9 @@ exports.handler = async (event) => {
         body: JSON.stringify({ success: false, error: 'Invalid TikTok URL' })
       };
     }
-const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`;
+
+    // Use a stable TikTok downloader API
+    const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`;
     const response = await fetch(apiUrl);
 
     if (!response.ok) {
@@ -57,3 +61,4 @@ const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`;
     };
   }
 };
+
