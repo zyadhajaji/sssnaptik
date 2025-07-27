@@ -231,7 +231,7 @@ section h2 {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
   }
 
   .options-flex button {
@@ -257,8 +257,8 @@ section h2 {
   }
 
   .options button {
-    width: 75%;
-    font-size: 12px;
+    width: 50%;
+    font-size: 9px;
   }
 
   .steps {
