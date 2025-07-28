@@ -139,14 +139,28 @@
   </section>
 <script src="script.js"></script>
 <script>
+  function normalizeTikTokUrl(url) {
+    // If it's a TikTok short link, convert it to the standard URL format
+    if (url.includes('vm.tiktok.com') || url.includes('vt.tiktok.com')) {
+      return url.trim();
+    }
+    // Ensure the URL starts with https
+    if (!url.startsWith('http')) {
+      url = 'https://' + url;
+    }
+    return url.trim();
+  }
+
   function downloadOption(option) {
-    const url = document.getElementById("tiktokUrl").value.trim();
+    let url = document.getElementById("tiktokUrl").value.trim();
     const optionsBox = document.getElementById("downloadOptions");
 
-    if (!url || !url.includes('tiktok.com')) {
+    if (!url) {
       optionsBox.innerHTML = `<p style="color:red;">Please paste a valid TikTok URL</p>`;
       return;
     }
+
+    url = normalizeTikTokUrl(url);
 
     optionsBox.innerHTML = `<p style="color:gold;">Fetching your download link...</p>`;
 
@@ -156,15 +170,14 @@
     })
     .then(res => res.json())
     .then(data => {
-      if (data.success) {
-        // Create a forced download button
+      if (data.success && data.link) {
         optionsBox.innerHTML = `
           <button class="gold-btn" onclick="startDownload('${data.link}', '${data.filename}')">
             Download Highest Quality
           </button>
         `;
       } else {
-        optionsBox.innerHTML = `<p style="color:red;">${data.error}</p>`;
+        optionsBox.innerHTML = `<p style="color:red;">${data.error || 'Invalid response'}</p>`;
       }
     })
     .catch(() => {
@@ -175,7 +188,8 @@
   function startDownload(link, filename) {
     const a = document.createElement('a');
     a.href = link;
-    a.download = filename; // forces download
+    a.setAttribute('download', filename);
+    a.style.display = 'none';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
