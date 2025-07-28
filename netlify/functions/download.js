@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 
 exports.handler = async (event) => {
   try {
-    const { url, option } = JSON.parse(event.body || "{}");
+    const { url } = JSON.parse(event.body || "{}");
 
     if (!url || !url.includes('tiktok.com')) {
       return {
@@ -13,6 +13,7 @@ exports.handler = async (event) => {
       };
     }
 
+    // Use TikWM API (highest quality available)
     const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`;
     const response = await fetch(apiUrl);
 
@@ -30,16 +31,8 @@ exports.handler = async (event) => {
       };
     }
 
-    // Prefer highest quality link
-    const hdLink = data.data.hdplay || data.data.play;
-    const formatMap = {
-      hd: hdLink,
-      watermark: data.data.wmplay,
-      mp3: data.data.music,
-      app: data.data.app_link
-    };
-
-    const videoLink = formatMap[option] || hdLink;
+    // Highest quality direct link
+    const videoLink = data.data.hdplay || data.data.play || data.data.wmplay;
 
     return {
       statusCode: 200,
@@ -50,7 +43,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         success: true,
         link: videoLink,
-        filename: `tiktok_${Date.now()}.${option === 'mp3' ? 'mp3' : 'mp4'}`
+        filename: `tiktok_${Date.now()}.mp4`
       })
     };
   } catch (err) {
@@ -61,6 +54,8 @@ exports.handler = async (event) => {
       body: JSON.stringify({ success: false, error: err.message || 'Internal Server Error' })
     };
   }
+};
+
 };
 
 
