@@ -154,23 +154,34 @@
       method: 'POST',
       body: JSON.stringify({ url, option })
     })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          optionsBox.innerHTML = `
-            <a href="${data.link}" class="gold-btn" download="${data.filename}">
-              Download Now
-            </a>
-          `;
-        } else {
-          optionsBox.innerHTML = `<p style="color:red;">${data.error}</p>`;
-        }
-      })
-      .catch(() => {
-        optionsBox.innerHTML = `<p style="color:red;">Failed to get the video. Try again.</p>`;
-      });
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        // Create a forced download button
+        optionsBox.innerHTML = `
+          <button class="gold-btn" onclick="startDownload('${data.link}', '${data.filename}')">
+            Download Highest Quality
+          </button>
+        `;
+      } else {
+        optionsBox.innerHTML = `<p style="color:red;">${data.error}</p>`;
+      }
+    })
+    .catch(() => {
+      optionsBox.innerHTML = `<p style="color:red;">Failed to get the video. Try again.</p>`;
+    });
+  }
+
+  function startDownload(link, filename) {
+    const a = document.createElement('a');
+    a.href = link;
+    a.download = filename; // forces download
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   }
 </script>
+
 
 
 </body>
